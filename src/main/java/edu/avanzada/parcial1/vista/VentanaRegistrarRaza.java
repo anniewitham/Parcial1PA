@@ -62,6 +62,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         BotonEliminar = new javax.swing.JButton();
         BotonModificar = new javax.swing.JButton();
         BotonLimpiar = new javax.swing.JButton();
+        BotonSerializar = new javax.swing.JButton();
         PanelBaseDeDatos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
@@ -321,20 +322,26 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         BotonLimpiar.setText("Limpiar");
         BotonLimpiar.setBorder(null);
 
+        BotonSerializar.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
+        BotonSerializar.setText("Serializar");
+        BotonSerializar.setBorder(null);
+
         javax.swing.GroupLayout PanelBotonesLayout = new javax.swing.GroupLayout(PanelBotones);
         PanelBotones.setLayout(PanelBotonesLayout);
         PanelBotonesLayout.setHorizontalGroup(
             PanelBotonesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelBotonesLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+                .addGap(27, 27, 27)
                 .addComponent(BotonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(61, 61, 61)
+                .addGap(40, 40, 40)
                 .addComponent(BotonConsultar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(39, 39, 39)
                 .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(83, 83, 83)
+                .addGap(44, 44, 44)
                 .addComponent(BotonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76)
+                .addGap(42, 42, 42)
+                .addComponent(BotonSerializar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
                 .addComponent(BotonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(34, Short.MAX_VALUE))
         );
@@ -347,7 +354,8 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                     .addComponent(BotonEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotonModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(BotonInsertar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BotonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(BotonLimpiar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BotonSerializar, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(14, 14, 14))
         );
 
@@ -573,6 +581,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
     private javax.swing.JButton BotonInsertar;
     private javax.swing.JButton BotonLimpiar;
     private javax.swing.JButton BotonModificar;
+    private javax.swing.JButton BotonSerializar;
     private javax.swing.JComboBox<String> ComboBoxGrupo;
     private javax.swing.JComboBox<String> ComboBoxSeccion;
     private javax.swing.JPanel PanelBaseDeDatos;
