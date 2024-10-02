@@ -1,5 +1,5 @@
 
-package java.edu.avanzada.parcial1.control;
+package edu.avanzada.parcial1.control;
 
 public class Launcher {
 

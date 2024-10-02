@@ -1,11 +1,10 @@
-package java.edu.avanzada.parcial1.vista;
+package edu.avanzada.parcial1.vista;
 
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
  * Ventana emergente. Clase encargada de mostrar mensajes de error.
+ * @author Ana, Samuel, Juan
  * @lastModified  28/09/2024
  */
 public class VentanaEmergente {
@@ -34,7 +33,6 @@ public class VentanaEmergente {
      * @param mensaje
      */
     public void ventanaPlana(String mensaje) {
-        Icon o = new ImageIcon(getClass().getResource("/Vista/oso.png"));
-        JOptionPane.showMessageDialog(null, mensaje, " ", JOptionPane.PLAIN_MESSAGE, o);
+        JOptionPane.showMessageDialog(null, mensaje, " ", JOptionPane.PLAIN_MESSAGE);
     }
 }

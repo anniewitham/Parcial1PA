@@ -1,4 +1,4 @@
-package java.edu.avanzada.parcial1.modelo;
+package edu.avanzada.parcial1.modelo;
 
 import java.io.Serializable;
 
@@ -10,14 +10,15 @@ import java.io.Serializable;
 public class RazaVO implements Serializable {
 
     private String nombre, paisOrigen;
-    private transient String apariencia, mantoColor, espalda, lomo, cola, pecho;  // datos que no se serializaran
+    private transient String apariencia, peloManto,colorManto, espalda, lomo, cola, pecho;  // datos que no se serializaran
     private int seccionFCI, grupoFCI;
 
-    public RazaVO(String nombre, String paisOrigen, String apariencia, String mantoColor, String espalda, String lomo, String cola, String pecho, int seccionFCI, int grupoFCI) {
+    public RazaVO(String nombre, String paisOrigen, String apariencia, String peloManto, String colorManto, String espalda, String lomo, String cola, String pecho, int seccionFCI, int grupoFCI) {
         this.nombre = nombre;
         this.paisOrigen = paisOrigen;
         this.apariencia = apariencia;
-        this.mantoColor = mantoColor;
+        this.peloManto = peloManto;
+        this.colorManto = colorManto;
         this.espalda = espalda;
         this.lomo = lomo;
         this.cola = cola;
@@ -50,12 +51,20 @@ public class RazaVO implements Serializable {
         this.apariencia = apariencia;
     }
 
-    public String getMantoColor() {
-        return mantoColor;
+    public String getPeloManto() {
+        return peloManto;
     }
 
-    public void setMantoColor(String mantoColor) {
-        this.mantoColor = mantoColor;
+    public void setPeloManto(String peloManto) {
+        this.peloManto = peloManto;
+    }
+
+    public String getColorManto() {
+        return colorManto;
+    }
+
+    public void setColorManto(String colorManto) {
+        this.colorManto = colorManto;
     }
 
     public String getEspalda() {
@@ -106,4 +115,5 @@ public class RazaVO implements Serializable {
         this.grupoFCI = grupoFCI;
     }
 
+    
 }
