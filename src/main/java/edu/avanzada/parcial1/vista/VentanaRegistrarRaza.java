@@ -1,28 +1,23 @@
-
- 
 package edu.avanzada.parcial1.vista;
 
 import edu.avanzada.parcial1.control.ControlPrincipal;
-import java.awt.event.ItemEvent;
-import javax.swing.DefaultComboBoxModel;
 
 /**
  *
  * @author Ana, Samuel, Juan
  */
 public class VentanaRegistrarRaza extends javax.swing.JFrame {
-
-   private ControlPrincipal control;
-
+    private ControlPrincipal control;
+    
     /**
      * Creates new form VentanaRegistrarRaza
      */
     public VentanaRegistrarRaza(ControlPrincipal aThis) {
-       this.control = aThis;
+        control = aThis;
         initComponents();
-        this.setLocationRelativeTo(null);
+        setVisible(true);
+        setLocationRelativeTo(null);
         ComboBoxSeccion.setSelectedItem(null);
-        
     }
 
     
@@ -76,7 +71,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         jLabel1.setText("Bienvenido");
 
         PanelDatos.setBackground(new java.awt.Color(204, 204, 255));
-        PanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(0, 0, 102))); // NOI18N
+        PanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(0, 0, 102))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -246,9 +241,8 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                                 .addGap(27, 27, 27)))
                         .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(TextPecho, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                            .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(TextLomo, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
-                                .addComponent(TextCola))))
+                            .addComponent(TextLomo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+                            .addComponent(TextCola, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(PanelDatosLayout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jLabel13)
@@ -300,7 +294,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         );
 
         PanelBotones.setBackground(new java.awt.Color(188, 188, 234));
-        PanelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        PanelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Operaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
 
         BotonConsultar.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         BotonConsultar.setText("Consultar");
@@ -360,7 +354,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         );
 
         PanelBaseDeDatos.setBackground(new java.awt.Color(165, 165, 229));
-        PanelBaseDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Base De Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        PanelBaseDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Base De Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
 
         jTable2.setBackground(new java.awt.Color(204, 204, 255));
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -576,12 +570,12 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BotonConsultar;
-    private javax.swing.JButton BotonEliminar;
-    private javax.swing.JButton BotonInsertar;
-    private javax.swing.JButton BotonLimpiar;
-    private javax.swing.JButton BotonModificar;
-    private javax.swing.JButton BotonSerializar;
+    public javax.swing.JButton BotonConsultar;
+    public javax.swing.JButton BotonEliminar;
+    public javax.swing.JButton BotonInsertar;
+    public javax.swing.JButton BotonLimpiar;
+    public javax.swing.JButton BotonModificar;
+    public javax.swing.JButton BotonSerializar;
     private javax.swing.JComboBox<String> ComboBoxGrupo;
     private javax.swing.JComboBox<String> ComboBoxSeccion;
     private javax.swing.JPanel PanelBaseDeDatos;

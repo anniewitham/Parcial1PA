@@ -10,15 +10,19 @@ import java.io.Serializable;
 public class RazaVO implements Serializable {
 
     private String nombre, paisOrigen;
-    private transient String apariencia, peloManto,colorManto, espalda, lomo, cola, pecho;  // datos que no se serializaran
+    private transient String apariencia, pelo, color, espalda, lomo, cola, pecho;  // datos que no se serializaran
     private int seccionFCI, grupoFCI;
+    
+    public RazaVO(){
+        
+    }
 
     public RazaVO(String nombre, String paisOrigen, String apariencia, String peloManto, String colorManto, String espalda, String lomo, String cola, String pecho, int seccionFCI, int grupoFCI) {
         this.nombre = nombre;
         this.paisOrigen = paisOrigen;
         this.apariencia = apariencia;
-        this.peloManto = peloManto;
-        this.colorManto = colorManto;
+        this.pelo = peloManto;
+        this.color = colorManto;
         this.espalda = espalda;
         this.lomo = lomo;
         this.cola = cola;
@@ -52,19 +56,19 @@ public class RazaVO implements Serializable {
     }
 
     public String getPeloManto() {
-        return peloManto;
+        return pelo;
     }
 
     public void setPeloManto(String peloManto) {
-        this.peloManto = peloManto;
+        this.pelo = peloManto;
     }
 
     public String getColorManto() {
-        return colorManto;
+        return color;
     }
 
     public void setColorManto(String colorManto) {
-        this.colorManto = colorManto;
+        this.color = colorManto;
     }
 
     public String getEspalda() {

@@ -1,5 +1,6 @@
 package edu.avanzada.parcial1.vista;
 
+import java.io.File;
 import javax.swing.JOptionPane;
 
 /**
