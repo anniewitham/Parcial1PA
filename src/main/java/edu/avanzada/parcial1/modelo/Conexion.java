@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 /**
  * La clase Conexion es responsable de establecer y gestionar la conexión
- * con la base de datos. Utiliza las credenciales almacenadas en un archivo
- * de propiedades para conectarse a la base de datos y permite la
+ * con la base de datos. Utiliza las credenciales almacenadas en un objeto
+ * ControlProperties para conectarse a la base de datos y permite la
  * desconexión.
  * 
  * Esta clase implementa el patrón de diseño Singleton, asegurando que
@@ -17,45 +17,50 @@ import java.sql.SQLException;
  * @author Juan, Ana, Samuel
  */
 public class Conexion {
-    private ControlProperties propiedades; // Objeto para manejar las propiedades de conexión
     private static Connection conexion = null; // Instancia de conexión a la base de datos
-    private static String URLBD; // URL de la base de datos
-    private static String usuario; // Usuario para la conexión
-    private static String contrasena; // Contraseña para la conexión
+    private String URLBD; // URL de la base de datos
+    private String usuario; // Usuario para la conexión
+    private String contrasena; // Contraseña para la conexión
 
     /**
-     * Constructor de la clase Conexion. Inicializa el objeto ControlProperties
-     * y carga las credenciales de la base de datos desde el archivo de propiedades.
+     * Constructor de la clase Conexion. Inicializa las credenciales de conexión.
+     *
+     * @param propiedades Objeto ControlProperties que contiene las credenciales de conexión.
      */
-    public Conexion() {
-        propiedades = new ControlProperties();
-        this.URLBD = propiedades.obtenerCredencial(URLBD);
-        this.usuario = propiedades.obtenerCredencial(usuario);
-        this.contrasena = propiedades.obtenerCredencial(contrasena);
+    public Conexion(ControlProperties propiedades) throws SQLException {
+        this.URLBD = propiedades.obtenerCredencial("URLBD");
+        this.usuario = propiedades.obtenerCredencial("usuario");
+        this.contrasena = propiedades.obtenerCredencial("contrasena");
+
+        // Verificar credenciales antes de la conexión
+        System.out.println("URLBD: " + URLBD);
+        System.out.println("Usuario: " + usuario);
+        System.out.println("Contraseña: " + contrasena);
     }
+
 
     /**
      * Obtiene la conexión a la base de datos. Si la conexión no existe,
      * se crea una nueva utilizando las credenciales cargadas.
      *
-     * @return La conexión a la base de datos, o null si ocurrió un error.
+     * @return La conexión a la base de datos.
+     * @throws SQLException si ocurre un error al establecer la conexión.
      */
-    public static Connection getConexion() {
-        try {
-            // Intenta establecer la conexión con la base de datos
+    public Connection getConexion() throws SQLException {
+        if (conexion == null) {
             conexion = DriverManager.getConnection(URLBD, usuario, contrasena);
-        } catch (SQLException ex) {
-            // Se puede manejar la excepción aquí (p.ej., registrar el error)
-            ex.printStackTrace(); // Imprime el stack trace en caso de error
         }
-        return conexion; // Retorna la conexión (puede ser null si hubo un error)
+        return conexion; // Retorna la conexión
     }
 
     /**
      * Desconecta la conexión a la base de datos establecida, estableciendo
      * la instancia de conexión a null.
      */
-    public static void desconectar() {
-        conexion = null; // Desconectar la conexión
+    public void desconectar() throws SQLException {
+        if (conexion != null) {
+            conexion.close(); // Desconectar la conexión
+            conexion = null; // Restablecer a null
+        }
     }
 }

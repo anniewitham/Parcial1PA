@@ -24,7 +24,7 @@ public class VentanaEmergente {
      *
      * @param mensaje
      */
-    public void ventanaAtención(String mensaje) {
+    public void ventanaAtencion(String mensaje) {
         JOptionPane.showMessageDialog(null, mensaje, "Atención", JOptionPane.WARNING_MESSAGE);
     }
 
