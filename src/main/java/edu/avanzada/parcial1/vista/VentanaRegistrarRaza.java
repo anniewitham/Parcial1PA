@@ -71,7 +71,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         BotonSerializar = new javax.swing.JButton();
         PanelBaseDeDatos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        Tabla = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -367,8 +367,8 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         PanelBaseDeDatos.setBackground(new java.awt.Color(165, 165, 229));
         PanelBaseDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Base De Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
 
-        jTable2.setBackground(new java.awt.Color(204, 204, 255));
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        Tabla.setBackground(new java.awt.Color(204, 204, 255));
+        Tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null, null, null, null, null, null}
             },
@@ -376,7 +376,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                 "raza", "paisOrigen", "grupoFCI", "seccionFCI", "apariencia", "peloManto", "colorManto", "espalda", "lomo", "cola", "pecho"
             }
         ));
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(Tabla);
 
         javax.swing.GroupLayout PanelBaseDeDatosLayout = new javax.swing.GroupLayout(PanelBaseDeDatos);
         PanelBaseDeDatos.setLayout(PanelBaseDeDatosLayout);
@@ -592,6 +592,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelDatos;
     public javax.swing.JComboBox<String> SeccionFCI;
+    public javax.swing.JTable Tabla;
     public javax.swing.JTextField TextApariencia;
     public javax.swing.JTextField TextCola;
     public javax.swing.JTextField TextColor;
@@ -616,6 +617,5 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
 }

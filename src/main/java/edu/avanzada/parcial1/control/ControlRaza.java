@@ -62,9 +62,8 @@ public class ControlRaza {
         razaDAO.eliminarRaza(id);
     }
 
-    public List<RazaVO> consultarRaza() throws SQLException {
-        // Delegar la consulta a RazaDAO
-        return razaDAO.consultarRazas();
+    public List<RazaVO> consultarRaza(int tipoConsulta, String consulta) throws SQLException {
+        return razaDAO.consultarRazas(tipoConsulta, consulta);
     }
 
     // Método para obtener razas incompletas

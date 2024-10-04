@@ -97,6 +97,62 @@ public class RazaDAO {
 
         return razas;
     }
+    
+    public List<RazaVO> consultarRazas(int _tipoConsulta, String consulta) throws SQLException {
+    List<RazaVO> razas = new ArrayList<>();
+    String sql = null;
+
+    if (_tipoConsulta == 1) {
+        sql = "SELECT * FROM `raza` WHERE nombre = ?";
+    } else if (_tipoConsulta == 2) {
+        String[] partes = consulta.split(",");
+        String grupoFCI = partes[0].trim();
+        String seccionFCI = partes[1].trim();
+        
+        // Comparación exacta con "=" en lugar de "LIKE"
+        sql = "SELECT * FROM `raza` WHERE grupo_fci = ? AND seccion_fci = ?";
+    } else if (_tipoConsulta == 3) {
+        sql = "SELECT * FROM `raza` WHERE pais_origen = ?";
+    } else if (_tipoConsulta == 4) {
+        sql = "SELECT * FROM `raza` WHERE color = ?";
+    }
+
+    if (sql != null) {
+        try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
+            if (_tipoConsulta == 2) {
+                // Asigna los valores para grupo_fci y seccion_fci
+                String[] partes = consulta.split(",");
+                pstmt.setString(1, partes[0].trim());
+                pstmt.setString(2, partes[1].trim());
+            } else {
+                // Para el resto de las consultas
+                pstmt.setString(1, consulta.trim());
+            }
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                while (rs.next()) {
+                    RazaVO raza = new RazaVO(
+                        rs.getString("nombre"),
+                        rs.getString("pais_origen"),
+                        rs.getString("grupo_fci"),
+                        rs.getString("seccion_fci"),
+                        rs.getString("apariencia_general"),
+                        rs.getString("pelo"),
+                        rs.getString("color"),
+                        rs.getString("espalda"),
+                        rs.getString("lomo"),
+                        rs.getString("cola"),
+                        rs.getString("pecho")
+                    );
+                    razas.add(raza);
+                }
+            }
+        }
+    }
+    return razas;
+}
+
+
 
     public boolean consultarExistencia() throws SQLException {
         String sql = "SELECT COUNT(*) FROM raza";
