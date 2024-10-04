@@ -298,7 +298,7 @@ public class ControlPrincipal implements ActionListener {
                 ventanaEmergente.ventanaAtencion("Acción no reconocida.");
                 break;
         }
-    
+    }
     
     private void agregarDatosATabla(List<RazaVO> lista) {
         DefaultTableModel model = (DefaultTableModel) vistaRegistrarRaza.Tabla.getModel();
