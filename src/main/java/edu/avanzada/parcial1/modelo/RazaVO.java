@@ -15,6 +15,7 @@ import java.io.Serializable;
 public class RazaVO implements Serializable {
     private static final long serialVersionUID = 1L; // Añadir un serialVersionUID para compatibilidad
 
+    private int ID;
     private String nombre;         // Nombre de la raza
     private String paisOrigen;     // País de origen de la raza
     private String grupoFCI;       // Grupo FCI al que pertenece la raza
@@ -30,6 +31,23 @@ public class RazaVO implements Serializable {
     // Constructor vacío
     public RazaVO() {}
 
+    public RazaVO(int ID, String nombre, String paisOrigen, String grupoFCI, String seccionFCI,
+                  String apariencia, String pelo, String color, String espalda, 
+                  String lomo, String cola, String pecho) {
+        this.ID = ID;
+        this.nombre = nombre;
+        this.paisOrigen = paisOrigen;
+        this.grupoFCI = grupoFCI;
+        this.seccionFCI = seccionFCI;
+        this.apariencia = apariencia;
+        this.pelo = pelo;
+        this.color = color;
+        this.espalda = espalda;
+        this.lomo = lomo;
+        this.cola = cola;
+        this.pecho = pecho;
+    }
+    
     // Constructor completo
     public RazaVO(String nombre, String paisOrigen, String grupoFCI, String seccionFCI,
                   String apariencia, String pelo, String color, String espalda, 
@@ -45,6 +63,10 @@ public class RazaVO implements Serializable {
         this.lomo = lomo;
         this.cola = cola;
         this.pecho = pecho;
+    }
+
+    public RazaVO(String grupoFCI, String seccionFCI, String apariencia, String pelo, String color, String espalda, String lomo, String cola, String pecho) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // Getters y Setters
@@ -134,5 +156,13 @@ public class RazaVO implements Serializable {
 
     public void setPecho(String pecho) {
         this.pecho = pecho;
+    }
+    
+    public int getID(){
+        return ID;
+    }
+    
+    public void setID(int ID){
+        this.ID = ID;
     }
 }

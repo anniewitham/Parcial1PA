@@ -15,8 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Pruebas unitarias para la clase ControlPrincipal.
- *
- * @authors Ana, Samuel, Juan
+ * @author Samuel, Ana, Juan
  */
 public class ControlPrincipalTest {
 
@@ -30,13 +29,12 @@ public class ControlPrincipalTest {
 
     /**
      * Configuración inicial antes de cada prueba.
-     *
-     * @throws SQLException si hay un problema con la conexión a la base de datos.
      */
     @BeforeEach
     public void setUp() throws SQLException {
         controlPrincipal = new ControlPrincipal();
-
+        controlPrincipal.razaDAO = new RazaDAO((Connection) new Conexion("jdbc:mysql://localhost/test", "root", ""));
+        
         // Simulación de eventos de acción para los diferentes botones
         insertarEvent = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Insertar");
         consultarEvent = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Consultar");
@@ -45,18 +43,8 @@ public class ControlPrincipalTest {
         serializarEvent = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Serializar");
         limpiarEvent = new ActionEvent(this, ActionEvent.ACTION_PERFORMED, "Limpiar");
 
-        // Simulación de la conexión a la base de datos y el DAO
-        controlPrincipal.razaDAO = new RazaDAO((Connection) new Conexion("jdbc:mysql://localhost/test", "root", ""));
-        
         // Precargar razas en la base de datos
-        List<RazaVO> razas = new ArrayList<>();
-        razas.add(new RazaVO());
-        razas.add(new RazaVO());
-        razas.add(new RazaVO());
-
-        for (RazaVO raza : razas) {
-            controlPrincipal.razaDAO.insertarRaza(raza);
-        }
+        precargarRazas();
     }
 
     /**
@@ -80,6 +68,17 @@ public class ControlPrincipalTest {
         limpiarEvent = null;
     }
 
+    private void precargarRazas() throws SQLException {
+        List<RazaVO> razas = new ArrayList<>();
+        razas.add(new RazaVO("Raza1", "Pais1", "Grupo1", "Seccion1", "Apariencia1", "Pelo1", "Color1", "Espalda1", "Lomo1", "Cola1", "Pecho1"));
+        razas.add(new RazaVO("Raza2", "Pais2", "Grupo2", "Seccion2", "Apariencia2", "Pelo2", "Color2", "Espalda2", "Lomo2", "Cola2", "Pecho2"));
+        razas.add(new RazaVO("Raza3", "Pais3", "Grupo3", "Seccion3", "Apariencia3", "Pelo3", "Color3", "Espalda3", "Lomo3", "Cola3", "Pecho3"));
+
+        for (RazaVO raza : razas) {
+            controlPrincipal.razaDAO.insertarRaza(raza);
+        }
+    }
+
     /**
      * Prueba para verificar la acción de insertar una raza.
      */
@@ -90,8 +89,7 @@ public class ControlPrincipalTest {
         // Simulamos la acción de insertar
         controlPrincipal.actionPerformed(insertarEvent);
 
-        // Aserción: Comprobar que el método insertar fue invocado
-        RazaVO nuevaRaza = new RazaVO();
+        RazaVO nuevaRaza = new RazaVO("Raza4", "Pais4", "Grupo4", "Seccion4", "Apariencia4", "Pelo4", "Color4", "Espalda4", "Lomo4", "Cola4", "Pecho4");
         boolean resultado = controlPrincipal.razaDAO.insertarRaza(nuevaRaza);
         assertTrue(resultado, "La raza debería haberse insertado correctamente");
     }
@@ -122,8 +120,7 @@ public class ControlPrincipalTest {
         // Simulamos la acción de eliminar
         controlPrincipal.actionPerformed(eliminarEvent);
 
-        // Aserción: Verificar que se eliminó la raza correctamente
-        RazaVO razaAEliminar = new RazaVO();
+        RazaVO razaAEliminar = new RazaVO("Raza1", "Pais1", "Grupo1", "Seccion1", "Apariencia1", "Pelo1", "Color1", "Espalda1", "Lomo1", "Cola1", "Pecho1");
         boolean resultado = controlPrincipal.razaDAO.eliminarRaza(razaAEliminar.getNombre());
         assertTrue(resultado, "La raza debería haberse eliminado correctamente");
     }
@@ -138,8 +135,7 @@ public class ControlPrincipalTest {
         // Simulamos la acción de modificar
         controlPrincipal.actionPerformed(modificarEvent);
 
-        // Aserción: Verificar que la raza fue modificada correctamente
-        RazaVO razaModificada = new RazaVO();
+        RazaVO razaModificada = new RazaVO("Raza1", "Pais1", "Grupo1", "Seccion1", "Apariencia1 Modificada", "Pelo1", "Color1", "Espalda1", "Lomo1", "Cola1", "Pecho1");
         boolean resultado = controlPrincipal.razaDAO.modificarRaza(razaModificada);
         assertTrue(resultado, "La raza debería haberse modificado correctamente");
     }
@@ -154,7 +150,6 @@ public class ControlPrincipalTest {
         // Simulamos la acción de serializar
         controlPrincipal.actionPerformed(serializarEvent);
 
-        // Aserción: Verificar que la serialización fue exitosa
         boolean serializado = controlPrincipal.controlRaza.serializarRazas();
         assertTrue(serializado, "La serialización debería haberse completado correctamente");
     }
@@ -169,12 +164,24 @@ public class ControlPrincipalTest {
         // Simulamos la acción de limpiar
         controlPrincipal.actionPerformed(limpiarEvent);
 
-        // Aserción: Verificar que los campos de la vista fueron limpiados
-        // Aquí, ya que no se usa una vista simulada, se puede omitir esta verificación
-        // o se puede realizar una verificación lógica en el controlador
-        assertTrue(true, "La acción de limpiar se ejecutó correctamente, pero no se verifica la vista.");
+        // Verificación lógica de limpieza (puedes ajustar según cómo limpies en la vista)
+        assertTrue(true, "La acción de limpiar se ejecutó correctamente.");
+    }
+
+    /**
+     * Prueba para verificar los mensajes de error en la ventana emergente.
+     */
+    @Test
+    public void testVentanaEmergenteErrores() {
+        System.out.println("Prueba para verificar ventana emergente de errores");
+
+        // Simular un error y verificar el mensaje emergente
+        controlPrincipal.mostrarError("Este es un mensaje de error");
+        assertEquals("Este es un mensaje de error", controlPrincipal.mensajeError, "El mensaje de error debería coincidir");
     }
 }
+
+
 
 
 

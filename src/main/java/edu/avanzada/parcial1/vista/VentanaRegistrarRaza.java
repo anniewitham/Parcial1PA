@@ -15,9 +15,20 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
     public VentanaRegistrarRaza(ControlPrincipal aThis) {
         control = aThis;
         initComponents();
-        setVisible(true);
         setLocationRelativeTo(null);
-        ComboBoxSeccion.setSelectedItem(null);
+        SeccionFCI.setSelectedItem(null);
+    }
+    
+    public void limpiar(){
+        TextApariencia.setText("");
+        TextCola.setText("");
+        TextColor.setText("");
+        TextEspalda.setText("");
+        TextLomo.setText("");
+        TextPais.setText("");
+        TextPecho.setText("");
+        TextPelo.setText("");
+        TextRaza.setText("");
     }
 
     
@@ -48,8 +59,8 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         TextPecho = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        ComboBoxSeccion = new javax.swing.JComboBox<>();
-        ComboBoxGrupo = new javax.swing.JComboBox<>();
+        SeccionFCI = new javax.swing.JComboBox<>();
+        GrupoFCI = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
         PanelBotones = new javax.swing.JPanel();
         BotonConsultar = new javax.swing.JButton();
@@ -170,21 +181,21 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         jLabel12.setForeground(new java.awt.Color(51, 51, 51));
         jLabel12.setText("Grupo:");
 
-        ComboBoxGrupo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grupo I: perros de pastor y perros boyeros.", "Grupo II: perros Pinscher, Schnauzer, Molosoide y perros Boyeros Suizos.", "Grupo III: perros Terriers.", "Grupo IV: perros Dachshund o Teckel.", "Grupo V: perros tipo Spitz y tipo primitivo.", "Grupo VI: perros tipo sabueso y perros de rastreo.", "Grupo VII: perros de muestra.", "Grupo VIII: perros cobradores, cazadores y perros de aguas.", "Grupo IX: perros de compañía.", "Grupo X: perros lebreles." }));
-        ComboBoxGrupo.setBorder(null);
-        ComboBoxGrupo.addItemListener(new java.awt.event.ItemListener() {
+        GrupoFCI.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Grupo I: perros de pastor y perros boyeros.", "Grupo II: perros Pinscher, Schnauzer, Molosoide y perros Boyeros Suizos.", "Grupo III: perros Terriers.", "Grupo IV: perros Dachshund o Teckel.", "Grupo V: perros tipo Spitz y tipo primitivo.", "Grupo VI: perros tipo sabueso y perros de rastreo.", "Grupo VII: perros de muestra.", "Grupo VIII: perros cobradores, cazadores y perros de aguas.", "Grupo IX: perros de compañía.", "Grupo X: perros lebreles." }));
+        GrupoFCI.setBorder(null);
+        GrupoFCI.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ComboBoxGrupoItemStateChanged(evt);
+                GrupoFCIItemStateChanged(evt);
             }
         });
-        ComboBoxGrupo.addMouseListener(new java.awt.event.MouseAdapter() {
+        GrupoFCI.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ComboBoxGrupoMouseClicked(evt);
+                GrupoFCIMouseClicked(evt);
             }
         });
-        ComboBoxGrupo.addActionListener(new java.awt.event.ActionListener() {
+        GrupoFCI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ComboBoxGrupoActionPerformed(evt);
+                GrupoFCIActionPerformed(evt);
             }
         });
 
@@ -221,7 +232,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jLabel12)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(GrupoFCI, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelDatosLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -247,7 +258,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                         .addGap(67, 67, 67)
                         .addComponent(jLabel13)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ComboBoxSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(SeccionFCI, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(32, 32, 32))
         );
         PanelDatosLayout.setVerticalGroup(
@@ -287,9 +298,9 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                 .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(jLabel12)
-                    .addComponent(ComboBoxSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(SeccionFCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
-                    .addComponent(ComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(GrupoFCI, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(19, Short.MAX_VALUE))
         );
 
@@ -472,101 +483,101 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_TextPechoActionPerformed
 
-    private void ComboBoxGrupoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ComboBoxGrupoItemStateChanged
+    private void GrupoFCIItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_GrupoFCIItemStateChanged
         // TODO add your handling code here:
 
-    }//GEN-LAST:event_ComboBoxGrupoItemStateChanged
+    }//GEN-LAST:event_GrupoFCIItemStateChanged
 
-    private void ComboBoxGrupoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ComboBoxGrupoMouseClicked
+    private void GrupoFCIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GrupoFCIMouseClicked
         // TODO add your handling code here:
 
 
-    }//GEN-LAST:event_ComboBoxGrupoMouseClicked
+    }//GEN-LAST:event_GrupoFCIMouseClicked
 
-    private void ComboBoxGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxGrupoActionPerformed
+    private void GrupoFCIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GrupoFCIActionPerformed
 
-        if (ComboBoxGrupo.getSelectedItem().equals("Grupo I: perros de pastor y perros boyeros.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Perros de pastor");
-            ComboBoxSeccion.addItem("Sección 2: Perros boyeros");
+        if (GrupoFCI.getSelectedItem().equals("Grupo I: perros de pastor y perros boyeros.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Perros de pastor");
+            SeccionFCI.addItem("Sección 2: Perros boyeros");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo II: perros Pinscher, Schnauzer, Molosoide y perros Boyeros Suizos.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Perros Pinscher y Schanuzer");
-            ComboBoxSeccion.addItem("Sección 2: Perros Molosoides");
-            ComboBoxSeccion.addItem("Sección 3: Perros tipo montaña y boyeros suizos");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo II: perros Pinscher, Schnauzer, Molosoide y perros Boyeros Suizos.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Perros Pinscher y Schanuzer");
+            SeccionFCI.addItem("Sección 2: Perros Molosoides");
+            SeccionFCI.addItem("Sección 3: Perros tipo montaña y boyeros suizos");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo III: perros Terriers.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Terriers de talla grande y media");
-            ComboBoxSeccion.addItem("Sección 2: Terriers de talla pequeña");
-            ComboBoxSeccion.addItem("Sección 3: Terriers tipo bull");
-            ComboBoxSeccion.addItem("Sección 4:Terriers de compañia");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo III: perros Terriers.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Terriers de talla grande y media");
+            SeccionFCI.addItem("Sección 2: Terriers de talla pequeña");
+            SeccionFCI.addItem("Sección 3: Terriers tipo bull");
+            SeccionFCI.addItem("Sección 4:Terriers de compañia");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo IV: perros Dachshund o Teckel.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo IV: perros Dachshund o Teckel.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo V: perros tipo Spitz y tipo primitivo.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Perros nórdico de trineo");
-            ComboBoxSeccion.addItem("Sección 2: Perros nórdicos de cacería");
-            ComboBoxSeccion.addItem("Sección 3: Perros nórdicos de guarda y pastoreo");
-            ComboBoxSeccion.addItem("Sección 4: Spitz europeos");
-            ComboBoxSeccion.addItem("Sección 5: Spitz asiáticos y razas semejantes");
-            ComboBoxSeccion.addItem("Sección 6: Tipo primitivo");
-            ComboBoxSeccion.addItem("Sección 7: Tipo primitivo - perros de caza");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo V: perros tipo Spitz y tipo primitivo.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Perros nórdico de trineo");
+            SeccionFCI.addItem("Sección 2: Perros nórdicos de cacería");
+            SeccionFCI.addItem("Sección 3: Perros nórdicos de guarda y pastoreo");
+            SeccionFCI.addItem("Sección 4: Spitz europeos");
+            SeccionFCI.addItem("Sección 5: Spitz asiáticos y razas semejantes");
+            SeccionFCI.addItem("Sección 6: Tipo primitivo");
+            SeccionFCI.addItem("Sección 7: Tipo primitivo - perros de caza");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo VI: perros tipo sabueso y perros de rastreo.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Perros tipo sabueso");
-            ComboBoxSeccion.addItem("Sección 2: Perros de rastro");
-            ComboBoxSeccion.addItem("Sección 3: Razas semejantes");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo VI: perros tipo sabueso y perros de rastreo.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Perros tipo sabueso");
+            SeccionFCI.addItem("Sección 2: Perros de rastro");
+            SeccionFCI.addItem("Sección 3: Razas semejantes");
 
         }
-        if (ComboBoxGrupo.getSelectedItem().equals("Grupo VII: perros de muestra.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Perros de muestra continentales");
-            ComboBoxSeccion.addItem("Sección 2: Perros de muestra ingleses e irlandeses");
+        if (GrupoFCI.getSelectedItem().equals("Grupo VII: perros de muestra.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Perros de muestra continentales");
+            SeccionFCI.addItem("Sección 2: Perros de muestra ingleses e irlandeses");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo VIII: perros cobradores, cazadores y perros de aguas.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Perros cobradores de caza");
-            ComboBoxSeccion.addItem("Sección 2: Perros levantadores de caza");
-            ComboBoxSeccion.addItem("Sección 3: Perros de agua.");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo VIII: perros cobradores, cazadores y perros de aguas.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Perros cobradores de caza");
+            SeccionFCI.addItem("Sección 2: Perros levantadores de caza");
+            SeccionFCI.addItem("Sección 3: Perros de agua.");
 
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo IX: perros de compañía.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: Bichons y razas semejantes");
-            ComboBoxSeccion.addItem("Sección 2: Caniche");
-            ComboBoxSeccion.addItem("Sección 3: Perros belga de talla pequeña");
-            ComboBoxSeccion.addItem("Sección 4: Perros sin pelos");
-            ComboBoxSeccion.addItem("Sección 5: Perros tibetanos");
-            ComboBoxSeccion.addItem("Sección 6: Chihuahueno");
-            ComboBoxSeccion.addItem("Sección 7: Spaniels ingleses de compañía");
-            ComboBoxSeccion.addItem("Sección 8: Spaniels japoneses y pekineses");
-            ComboBoxSeccion.addItem("Sección 9: Spaniels continental enano y otro");
-            ComboBoxSeccion.addItem("Sección 10:  Kromfohrlande");
-            ComboBoxSeccion.addItem("Sección 11: Molosoides de talla pequeña");
-        } else if (ComboBoxGrupo.getSelectedItem().equals("Grupo X: perros lebreles.")) {
-            ComboBoxSeccion.removeAllItems();
-            ComboBoxSeccion.setSelectedItem(null);
-            ComboBoxSeccion.addItem("Sección 1: lebreles de pelo largo u ondulado");
-            ComboBoxSeccion.addItem("Sección 2: lebreles de pelo duro");
-            ComboBoxSeccion.addItem("Sección 3: lebreles de pelo corto");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo IX: perros de compañía.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: Bichons y razas semejantes");
+            SeccionFCI.addItem("Sección 2: Caniche");
+            SeccionFCI.addItem("Sección 3: Perros belga de talla pequeña");
+            SeccionFCI.addItem("Sección 4: Perros sin pelos");
+            SeccionFCI.addItem("Sección 5: Perros tibetanos");
+            SeccionFCI.addItem("Sección 6: Chihuahueno");
+            SeccionFCI.addItem("Sección 7: Spaniels ingleses de compañía");
+            SeccionFCI.addItem("Sección 8: Spaniels japoneses y pekineses");
+            SeccionFCI.addItem("Sección 9: Spaniels continental enano y otro");
+            SeccionFCI.addItem("Sección 10:  Kromfohrlande");
+            SeccionFCI.addItem("Sección 11: Molosoides de talla pequeña");
+        } else if (GrupoFCI.getSelectedItem().equals("Grupo X: perros lebreles.")) {
+            SeccionFCI.removeAllItems();
+            SeccionFCI.setSelectedItem(null);
+            SeccionFCI.addItem("Sección 1: lebreles de pelo largo u ondulado");
+            SeccionFCI.addItem("Sección 2: lebreles de pelo duro");
+            SeccionFCI.addItem("Sección 3: lebreles de pelo corto");
 
         }
         // TODO add your handling code here:
-    }//GEN-LAST:event_ComboBoxGrupoActionPerformed
+    }//GEN-LAST:event_GrupoFCIActionPerformed
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -576,11 +587,11 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
     public javax.swing.JButton BotonLimpiar;
     public javax.swing.JButton BotonModificar;
     public javax.swing.JButton BotonSerializar;
-    private javax.swing.JComboBox<String> ComboBoxGrupo;
-    private javax.swing.JComboBox<String> ComboBoxSeccion;
+    public javax.swing.JComboBox<String> GrupoFCI;
     private javax.swing.JPanel PanelBaseDeDatos;
     private javax.swing.JPanel PanelBotones;
     private javax.swing.JPanel PanelDatos;
+    public javax.swing.JComboBox<String> SeccionFCI;
     public javax.swing.JTextField TextApariencia;
     public javax.swing.JTextField TextCola;
     public javax.swing.JTextField TextColor;
