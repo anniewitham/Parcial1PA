@@ -13,20 +13,20 @@ import java.io.Serializable;
  * @author Ana, Samuel, Juan
  */
 public class RazaVO implements Serializable {
-    private static final long serialVersionUID = 1L; // Añadir un serialVersionUID para compatibilidad
+    protected static final long serialVersionUID = 1L; // Añadir un serialVersionUID para compatibilidad
 
-    private int ID;
-    private String nombre;         // Nombre de la raza
-    private String paisOrigen;     // País de origen de la raza
-    private String grupoFCI;       // Grupo FCI al que pertenece la raza
-    private String seccionFCI;     // Sección FCI a la que pertenece la raza
-    private String apariencia;     // Descripción de la apariencia
-    private String pelo;           // Tipo de pelo
-    private String color;          // Color del manto
-    private String espalda;        // Descripción de la espalda
-    private String lomo;           // Descripción del lomo
-    private String cola;           // Descripción de la cola
-    private String pecho;          // Descripción del pecho
+    protected  int ID;
+    protected  String nombre;         // Nombre de la raza
+    protected  String paisOrigen;     // País de origen de la raza
+    protected  String grupoFCI;       // Grupo FCI al que pertenece la raza
+    protected  String seccionFCI;     // Sección FCI a la que pertenece la raza
+    protected  String apariencia;     // Descripción de la apariencia
+    protected  String pelo;           // Tipo de pelo
+    protected  String color;          // Color del manto
+    protected  String espalda;        // Descripción de la espalda
+    protected  String lomo;           // Descripción del lomo
+    protected  String cola;           // Descripción de la cola
+    protected  String pecho;          // Descripción del pecho
 
     // Constructor vacío
     public RazaVO() {}
@@ -66,7 +66,6 @@ public class RazaVO implements Serializable {
     }
 
     public RazaVO(String grupoFCI, String seccionFCI, String apariencia, String pelo, String color, String espalda, String lomo, String cola, String pecho) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // Getters y Setters

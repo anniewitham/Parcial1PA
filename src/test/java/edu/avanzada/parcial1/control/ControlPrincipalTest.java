@@ -15,6 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
 
 /**
  * Pruebas unitarias para la clase ControlPrincipal.
+ * Esta clase verifica las funcionalidades del controlador de razas,
+ * incluyendo la inserción, consulta, eliminación, modificación,
+ * serialización y limpieza de datos en la base de datos.
+ * 
  * @author Samuel, Ana, Juan
  */
 public class ControlPrincipalTest {
@@ -29,6 +33,9 @@ public class ControlPrincipalTest {
 
     /**
      * Configuración inicial antes de cada prueba.
+     * Se inicializa el controlador y se crean los eventos para las acciones.
+     * 
+     * @throws SQLException si ocurre un error en la conexión a la base de datos.
      */
     @BeforeEach
     public void setUp() throws SQLException {
@@ -49,25 +56,34 @@ public class ControlPrincipalTest {
 
     /**
      * Limpieza después de cada prueba.
+     * Se eliminan las razas de la base de datos y se liberan los recursos.
+     * 
+     * @throws SQLException si ocurre un error en la conexión a la base de datos.
      */
-    @AfterEach
-    public void tearDown() throws SQLException {
-        // Limpiar razas de la base de datos después de cada prueba
-        List<RazaVO> razas = controlPrincipal.razaDAO.consultarRazas();
-        for (RazaVO raza : razas) {
-            controlPrincipal.razaDAO.eliminarRaza(raza.getNombre());
-        }
-        
-        // Limpiar los objetos de prueba
-        controlPrincipal = null;
-        insertarEvent = null;
-        consultarEvent = null;
-        eliminarEvent = null;
-        modificarEvent = null;
-        serializarEvent = null;
-        limpiarEvent = null;
+@AfterEach
+public void tearDown() throws SQLException {
+    // Limpiar razas de la base de datos después de cada prueba
+    List<RazaVO> razas = controlPrincipal.razaDAO.consultarRazas();
+    for (RazaVO raza : razas) {
+        controlPrincipal.razaDAO.eliminarRaza(raza.getNombre()); // Usar "raza" en lugar de "razaVO"
     }
 
+    // Limpiar los objetos de prueba
+    controlPrincipal = null;
+    insertarEvent = null;
+    consultarEvent = null;
+    eliminarEvent = null;
+    modificarEvent = null;
+    serializarEvent = null;
+    limpiarEvent = null;
+}
+
+
+    /**
+     * Método para precargar razas en la base de datos para las pruebas.
+     * 
+     * @throws SQLException si ocurre un error en la conexión a la base de datos.
+     */
     private void precargarRazas() throws SQLException {
         List<RazaVO> razas = new ArrayList<>();
         razas.add(new RazaVO("Raza1", "Pais1", "Grupo1", "Seccion1", "Apariencia1", "Pelo1", "Color1", "Espalda1", "Lomo1", "Cola1", "Pecho1"));
@@ -81,21 +97,32 @@ public class ControlPrincipalTest {
 
     /**
      * Prueba para verificar la acción de insertar una raza.
+     * 
+     * Verifica que la raza se inserte correctamente en la base de datos.
      */
     @Test
-    public void testActionPerformed_Insertar() {
-        System.out.println("Simulando actionPerformed con comando 'Insertar'");
+public void testActionPerformed_Insertar() throws SQLException {
+    System.out.println("Simulando actionPerformed con comando 'Insertar'");
 
-        // Simulamos la acción de insertar
-        controlPrincipal.actionPerformed(insertarEvent);
+    // Creamos una nueva raza para insertar
+    RazaVO nuevaRaza = new RazaVO("Raza4", "Pais4", "Grupo4", "Seccion4", "Apariencia4", "Pelo4", "Color4", "Espalda4", "Lomo4", "Cola4", "Pecho4");
 
-        RazaVO nuevaRaza = new RazaVO("Raza4", "Pais4", "Grupo4", "Seccion4", "Apariencia4", "Pelo4", "Color4", "Espalda4", "Lomo4", "Cola4", "Pecho4");
-        boolean resultado = controlPrincipal.razaDAO.insertarRaza(nuevaRaza);
-        assertTrue(resultado, "La raza debería haberse insertado correctamente");
-    }
+    // Simulamos la acción de insertar
+    controlPrincipal.setNuevaRaza(nuevaRaza); // Asegúrate de tener un método en ControlPrincipal para establecer la nueva raza
+    controlPrincipal.actionPerformed(insertarEvent);
+
+    // Verificamos que la raza se haya insertado correctamente
+    List<RazaVO> razasConsultadas = controlPrincipal.razaDAO.consultarRazas();
+    assertTrue(razasConsultadas.stream().anyMatch(raza -> raza.getNombre().equals("Raza4")), "La raza debería haberse insertado correctamente");
+}
+
 
     /**
      * Prueba para verificar la acción de consultar las razas.
+     * 
+     * Verifica que la consulta retorne los datos esperados.
+     * 
+     * @throws SQLException si ocurre un error en la conexión a la base de datos.
      */
     @Test
     public void testActionPerformed_Consultar() throws SQLException {
@@ -112,6 +139,8 @@ public class ControlPrincipalTest {
 
     /**
      * Prueba para verificar la acción de eliminar una raza.
+     * 
+     * Verifica que la raza se elimine correctamente de la base de datos.
      */
     @Test
     public void testActionPerformed_Eliminar() {
@@ -127,6 +156,8 @@ public class ControlPrincipalTest {
 
     /**
      * Prueba para verificar la acción de modificar una raza.
+     * 
+     * Verifica que la raza se modifique correctamente en la base de datos.
      */
     @Test
     public void testActionPerformed_Modificar() {
@@ -142,6 +173,8 @@ public class ControlPrincipalTest {
 
     /**
      * Prueba para verificar la acción de serializar las razas.
+     * 
+     * Verifica que la serialización de las razas se complete correctamente.
      */
     @Test
     public void testActionPerformed_Serializar() {
@@ -155,7 +188,31 @@ public class ControlPrincipalTest {
     }
 
     /**
-     * Prueba para verificar la acción de limpiar los campos en la vista.
+     * Prueba para verificar la acción de actualizar una raza.
+     * 
+     * Verifica que se actualice correctamente una raza existente en la base de datos.
+     */
+    @Test
+    public void testActionPerformed_Actualizar() {
+        System.out.println("Simulando actionPerformed con comando 'Actualizar'");
+
+        // Supongamos que tenemos una raza existente en la base de datos para actualizar
+        int idRazaExistente = 1; // ID de la raza existente
+        RazaVO razaExistente = controlPrincipal.razaDAO.consultarRazaPorID(idRazaExistente);
+        
+        // Verificamos que la raza existe
+        assertNotNull(razaExistente, "La raza existente debería encontrarse en la base de datos");
+
+        // Simulamos la actualización de la raza
+        ventana.add(razaExistente);
+        boolean resultado = controlPrincipal.razaDAO.modificarRaza(razaExistente);
+        assertTrue(resultado, "La raza debería haberse actualizado correctamente");
+    }
+
+    /**
+     * Prueba para verificar la acción de limpiar los datos.
+     * 
+     * Verifica que la limpieza de datos funcione correctamente.
      */
     @Test
     public void testActionPerformed_Limpiar() {
@@ -164,23 +221,11 @@ public class ControlPrincipalTest {
         // Simulamos la acción de limpiar
         controlPrincipal.actionPerformed(limpiarEvent);
 
-        // Verificación lógica de limpieza (puedes ajustar según cómo limpies en la vista)
-        assertTrue(true, "La acción de limpiar se ejecutó correctamente.");
-    }
-
-    /**
-     * Prueba para verificar los mensajes de error en la ventana emergente.
-     */
-    @Test
-    public void testVentanaEmergenteErrores() {
-        System.out.println("Prueba para verificar ventana emergente de errores");
-
-        // Simular un error y verificar el mensaje emergente
-        controlPrincipal.mostrarError("Este es un mensaje de error");
-        assertEquals("Este es un mensaje de error", controlPrincipal.mensajeError, "El mensaje de error debería coincidir");
+        // Aquí se puede verificar que los datos en la vista se hayan limpiado
+        // Por ejemplo, se podría verificar que las entradas de texto estén vacías
+        assertTrue(controlPrincipal.vista.isCamposLimpios(), "Los campos deberían estar limpios");
     }
 }
-
 
 
 

@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 /**
  * Pruebas unitarias para la clase ControlRaza.
+ * 
  * @author Samuel, Ana, Juan
  */
 public class ControlRazaTest {
@@ -29,6 +30,8 @@ public class ControlRazaTest {
     /**
      * Configuración inicial para las pruebas.
      * Se crea una instancia de ControlRaza y se cargan razas simuladas.
+     * 
+     * @throws SQLException si ocurre un error de SQL al establecer la conexión.
      */
     @BeforeEach
     public void setUp() throws SQLException {
@@ -69,10 +72,12 @@ public class ControlRazaTest {
     /**
      * Test del método cargarRazasDesdePropiedades.
      * Se verifica que las razas sean cargadas correctamente desde las propiedades.
+     * 
+     * @throws Exception si ocurre un error al consultar las razas.
      */
     @Test
     public void testCargarRazasDesdePropiedades() throws Exception {
-        List<RazaVO> razasConsultadas = controlRaza.consultarRaza();
+        List<RazaVO> razasConsultadas = controlRaza.consultarRaza(0, ""); // 0 para consultar todas las razas
 
         // Verificar que se hayan cargado las 4 razas correctamente
         assertEquals(6, razasConsultadas.size());
@@ -87,6 +92,8 @@ public class ControlRazaTest {
     /**
      * Test del método insertarRazas.
      * Se verifica que se inserten razas correctamente.
+     * 
+     * @throws Exception si ocurre un error al insertar razas.
      */
     @Test
     public void testInsertarRazas() throws Exception {
@@ -94,7 +101,7 @@ public class ControlRazaTest {
         RazaVO nuevaRaza = new RazaVO("Dachshund", "Alemania", null, null, null, null, null, null, null, null, null);
         controlRaza.insertarRazas(List.of(nuevaRaza));
 
-        List<RazaVO> razasConsultadas = controlRaza.consultarRaza();
+        List<RazaVO> razasConsultadas = controlRaza.consultarRaza(0, ""); // 0 para consultar todas las razas
 
         // Verificar que la nueva raza se haya insertado correctamente
         assertEquals(7, razasConsultadas.size());
@@ -104,6 +111,8 @@ public class ControlRazaTest {
     /**
      * Test del método completarRaza.
      * Se verifica que se complete correctamente una raza existente.
+     * 
+     * @throws Exception si ocurre un error al completar la raza.
      */
     @Test
     public void testCompletarRaza() throws Exception {
@@ -111,7 +120,7 @@ public class ControlRazaTest {
         controlRaza.completarRaza("Grupo1", "Sección1", "Apariencia1", "Pelo1", "Color1", "Espalda1", "Lomo1", "Cola1", "Pecho1", 5);
         
         // Consultar la raza actualizada
-        List<RazaVO> razasConsultadas = controlRaza.consultarRaza();
+        List<RazaVO> razasConsultadas = controlRaza.consultarRaza(0, ""); // 0 para consultar todas las razas
         RazaVO razaActualizada = razasConsultadas.get(4); // Pitbull es la raza en la posición 4
         
         // Verificar que los campos se hayan completado
@@ -123,13 +132,15 @@ public class ControlRazaTest {
     /**
      * Test del método eliminarRaza.
      * Se verifica que se elimine la raza correctamente.
+     * 
+     * @throws Exception si ocurre un error al eliminar la raza.
      */
     @Test
     public void testEliminarRaza() throws Exception {
         // Eliminar la segunda raza (Bulldog)
         controlRaza.eliminarRaza(2); // Se asume que el Bulldog está en la posición 2
 
-        List<RazaVO> razasConsultadas = controlRaza.consultarRaza();
+        List<RazaVO> razasConsultadas = controlRaza.consultarRaza(0, ""); // 0 para consultar todas las razas
 
         // Verificar que el número de razas sea correcto después de la eliminación
         assertEquals(6, razasConsultadas.size());
@@ -139,15 +150,18 @@ public class ControlRazaTest {
     /**
      * Test del método consultarRazas.
      * Se verifica que se obtenga la lista de razas del DAO.
+     * 
+     * @throws Exception si ocurre un error al consultar las razas.
      */
     @Test
     public void testConsultarRazas() throws Exception {
-        List<RazaVO> razasConsultadas = controlRaza.consultarRaza();
+        List<RazaVO> razasConsultadas = controlRaza.consultarRaza(0, ""); // 0 para consultar todas las razas
 
         assertEquals(6, razasConsultadas.size());
         assertEquals("Labrador", razasConsultadas.get(0).getNombre());
     }
 }
+
 
 
 
