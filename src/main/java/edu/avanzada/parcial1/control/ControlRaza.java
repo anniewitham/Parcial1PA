@@ -2,6 +2,8 @@ package edu.avanzada.parcial1.control;
 
 import edu.avanzada.parcial1.modelo.RazaDAO;
 import edu.avanzada.parcial1.modelo.RazaVO;
+import edu.avanzada.parcial1.modelo.Serializacion;
+import java.io.IOException;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -10,10 +12,14 @@ import java.util.Properties;
 
 public class ControlRaza {
     private RazaDAO razaDAO;
+    private ControlPrincipal control;
 
-    public ControlRaza(RazaDAO razaDAO) {
+    public ControlRaza(RazaDAO razaDAO, ControlPrincipal control) {
         this.razaDAO = razaDAO;
+        this.control = control;
     }
+
+    
 
     public void cargarRazasDesdePropiedades(Properties propiedades) throws SQLException {
         List<RazaVO> razas = new ArrayList<>();
@@ -86,5 +92,34 @@ public class ControlRaza {
     
     public void actualizarRaza(RazaVO raza) throws SQLException {
         razaDAO.actualizarRaza(raza);
+    }
+     /**
+     * Método que serializa una lista de objetos RazaVO en un archivo binario.
+     *
+     * @throws IOException si ocurre un error de entrada/salida durante la
+     * serialización
+     */
+    public void serializarRazas() throws IOException {
+        Serializacion serializacion = new Serializacion();
+
+        try {
+            // Consultamos las razas desde la base de datos
+            List<RazaVO> razas = razaDAO.consultarRazas();
+
+            // Verificamos si la lista tiene al menos un registro
+            if (!razas.isEmpty()) {
+                // Si tiene al menos un registro, serializamos la lista de razas
+                serializacion.escribirArchSerializado(new ArrayList<>(razas));
+                control.getVentanaEmergente().ventanaPlana("Razas serializadas correctamente.");
+            } else {
+                // Si la lista está vacía, mostramos un mensaje de advertencia
+                control.getVentanaEmergente().ventanaError("No hay razas para serializar.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Error al consultar las razas: " + e.getMessage());
+        } finally {
+            serializacion.cerrarArchSerializado();
+        }
+
     }
 }
