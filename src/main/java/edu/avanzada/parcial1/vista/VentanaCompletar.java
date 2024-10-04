@@ -372,6 +372,78 @@ public class VentanaCompletar extends javax.swing.JFrame {
 
     private void ComboBoxGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxGrupoActionPerformed
 
+    // Obtén el valor seleccionado del ComboBox
+    String grupoSeleccionado = (String) ComboBoxGrupo.getSelectedItem(); 
+
+    // Limpia los items previos en el ComboBox de Secciones
+    ComboBoxSeccion.removeAllItems();
+    ComboBoxSeccion.setSelectedItem(null);
+
+    // Si hay un valor seleccionado, proceder con el switch
+    if (grupoSeleccionado != null) {
+        switch (grupoSeleccionado) {
+            case "Grupo I: perros de pastor y perros boyeros.":
+                ComboBoxSeccion.addItem("Sección 1: Perros de pastor");
+                ComboBoxSeccion.addItem("Sección 2: Perros boyeros");
+                break;
+            case "Grupo II: perros Pinscher, Schnauzer, Molosoide y perros Boyeros Suizos.":
+                ComboBoxSeccion.addItem("Sección 1: Perros Pinscher y Schanuzer");
+                ComboBoxSeccion.addItem("Sección 2: Perros Molosoides");
+                ComboBoxSeccion.addItem("Sección 3: Perros tipo montaña y boyeros suizos");
+                break;
+            case "Grupo III: perros Terriers.":
+                ComboBoxSeccion.addItem("Sección 1: Terriers de talla grande y media");
+                ComboBoxSeccion.addItem("Sección 2: Terriers de talla pequeña");
+                ComboBoxSeccion.addItem("Sección 3: Terriers tipo bull");
+                ComboBoxSeccion.addItem("Sección 4: Terriers de compañía");
+                break;
+            case "Grupo IV: perros Dachshund o Teckel.":
+                // No hay secciones para este grupo
+                break;
+            case "Grupo V: perros tipo Spitz y tipo primitivo.":
+                ComboBoxSeccion.addItem("Sección 1: Perros nórdico de trineo");
+                ComboBoxSeccion.addItem("Sección 2: Perros nórdicos de cacería");
+                ComboBoxSeccion.addItem("Sección 3: Perros nórdicos de guarda y pastoreo");
+                ComboBoxSeccion.addItem("Sección 4: Spitz europeos");
+                ComboBoxSeccion.addItem("Sección 5: Spitz asiáticos y razas semejantes");
+                ComboBoxSeccion.addItem("Sección 6: Tipo primitivo");
+                ComboBoxSeccion.addItem("Sección 7: Tipo primitivo - perros de caza");
+                break;
+            case "Grupo VI: perros tipo sabueso y perros de rastreo.":
+                ComboBoxSeccion.addItem("Sección 1: Perros tipo sabueso");
+                ComboBoxSeccion.addItem("Sección 2: Perros de rastro");
+                ComboBoxSeccion.addItem("Sección 3: Razas semejantes");
+                break;
+            case "Grupo VII: perros de muestra.":
+                ComboBoxSeccion.addItem("Sección 1: Perros de muestra continentales");
+                ComboBoxSeccion.addItem("Sección 2: Perros de muestra ingleses e irlandeses");
+                break;
+            case "Grupo VIII: perros cobradores, cazadores y perros de aguas.":
+                ComboBoxSeccion.addItem("Sección 1: Perros cobradores de caza");
+                ComboBoxSeccion.addItem("Sección 2: Perros levantadores de caza");
+                ComboBoxSeccion.addItem("Sección 3: Perros de agua.");
+                break;
+            case "Grupo IX: perros de compañía.":
+                ComboBoxSeccion.addItem("Sección 1: Bichons y razas semejantes");
+                ComboBoxSeccion.addItem("Sección 2: Caniche");
+                ComboBoxSeccion.addItem("Sección 3: Perros belga de talla pequeña");
+                ComboBoxSeccion.addItem("Sección 4: Perros sin pelos");
+                ComboBoxSeccion.addItem("Sección 5: Perros tibetanos");
+                ComboBoxSeccion.addItem("Sección 6: Chihuahueno");
+                ComboBoxSeccion.addItem("Sección 7: Spaniels ingleses de compañía");
+                ComboBoxSeccion.addItem("Sección 8: Spaniels japoneses y pekineses");
+                ComboBoxSeccion.addItem("Sección 9: Spaniels continental enano y otro");
+                ComboBoxSeccion.addItem("Sección 10: Kromfohrlande");
+                ComboBoxSeccion.addItem("Sección 11: Molosoides de talla pequeña");
+                break;
+            case "Grupo X: perros lebreles.":
+                ComboBoxSeccion.addItem("Sección 1: lebreles de pelo largo u ondulado");
+                ComboBoxSeccion.addItem("Sección 2: lebreles de pelo duro");
+                ComboBoxSeccion.addItem("Sección 3: lebreles de pelo corto");
+                break;
+        }
+    }
+
         
 
     }//GEN-LAST:event_ComboBoxGrupoActionPerformed
