@@ -15,12 +15,12 @@ import java.util.Properties;
 import java.sql.SQLException;
 
 public class ControlPrincipal implements ActionListener {
-    public VentanaRegistrarRaza vistaRegistrarRaza;
-    public VentanaBuscarArchivo buscarArchivo;
-    public VentanaEmergente ventanaEmergente;
-    public RazaDAO razaDAO;
-    private Conexion conexion;
-    private ControlRaza controlRaza;
+    protected VentanaRegistrarRaza vistaRegistrarRaza;
+    protected VentanaBuscarArchivo buscarArchivo;
+    protected VentanaEmergente ventanaEmergente;
+    protected RazaDAO razaDAO;
+    protected Conexion conexion;
+    protected ControlRaza controlRaza;
 
     public ControlPrincipal() throws SQLException {
         ventanaEmergente = new VentanaEmergente();
