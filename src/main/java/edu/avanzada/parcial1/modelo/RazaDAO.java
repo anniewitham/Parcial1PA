@@ -8,15 +8,32 @@ import java.util.List;
  * La clase RazaDAO es responsable de manejar las operaciones de acceso a datos
  * relacionadas con las razas de perros en la base de datos.
  * 
+ * Esta clase proporciona métodos para realizar operaciones CRUD (Crear, Leer, 
+ * Actualizar, Eliminar) sobre las razas, así como consultas específicas para 
+ * obtener información sobre ellas. Utiliza una conexión a la base de datos proporcionada 
+ * en su constructor para ejecutar las consultas SQL.
+ *
  * @author Juan, Ana, Samuel
  */
 public class RazaDAO {
     private Connection connection;
 
+    /**
+     * Constructor de la clase RazaDAO.
+     *
+     * @param connection La conexión a la base de datos que se utilizará para 
+     * realizar las operaciones de acceso a datos.
+     */
     public RazaDAO(Connection connection) {
         this.connection = connection;
     }
 
+    /**
+     * Inserta una nueva raza en la base de datos con nombre y país de origen.
+     *
+     * @param raza Objeto RazaVO que contiene la información de la raza a insertar.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public void insertarRazaP(RazaVO raza) throws SQLException {
         String sql = "INSERT INTO raza (nombre, pais_origen) VALUES (?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -26,6 +43,12 @@ public class RazaDAO {
         }
     }
 
+    /**
+     * Inserta una nueva raza en la base de datos con todos sus atributos.
+     *
+     * @param raza Objeto RazaVO que contiene la información de la raza a insertar.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public void insertarRaza(RazaVO raza) throws SQLException {
         String sql = "INSERT INTO `raza`(`id`, `nombre`, `pais_origen`, `grupo_fci`, `seccion_fci`, `apariencia_general`, `pelo`, `color`, `espalda`, `lomo`, `cola`, `pecho`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -45,6 +68,12 @@ public class RazaDAO {
         }
     }
 
+    /**
+     * Actualiza los atributos de una raza existente en la base de datos.
+     *
+     * @param raza Objeto RazaVO que contiene la información actualizada de la raza.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public void actualizarRaza(RazaVO raza) throws SQLException {
         String sql = "UPDATE raza SET grupo_fci = ?, seccion_fci = ?, apariencia_general = ?, "
                    + "pelo = ?, color = ?, espalda = ?, lomo = ?, cola = ?, pecho = ? WHERE nombre = ?";
@@ -63,6 +92,12 @@ public class RazaDAO {
         }
     }
 
+    /**
+     * Elimina una raza de la base de datos según su nombre.
+     *
+     * @param nombre El nombre de la raza a eliminar.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public void eliminarRaza(String nombre) throws SQLException {
         String sql = "DELETE FROM raza WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -71,6 +106,12 @@ public class RazaDAO {
         }
     }
 
+    /**
+     * Consulta todas las razas en la base de datos.
+     *
+     * @return Una lista de objetos RazaVO que representan todas las razas.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public List<RazaVO> consultarRazas() throws SQLException {
         List<RazaVO> razas = new ArrayList<>();
         String sql = "SELECT * FROM raza";
@@ -98,6 +139,15 @@ public class RazaDAO {
         return razas;
     }
     
+    /**
+     * Consulta razas en la base de datos según un tipo de consulta específico.
+     *
+     * @param _tipoConsulta Tipo de consulta (1: por nombre, 2: por grupo y sección, 
+     *                      3: por país de origen, 4: por color).
+     * @param consulta Cadena de consulta que se usará para filtrar los resultados.
+     * @return Una lista de objetos RazaVO que cumplen con los criterios de consulta.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public List<RazaVO> consultarRazas(int _tipoConsulta, String consulta) throws SQLException {
         List<RazaVO> razas = new ArrayList<>();
         String sql = null;
@@ -150,6 +200,12 @@ public class RazaDAO {
         return razas;
     }
 
+    /**
+     * Consulta si existen razas en la base de datos.
+     *
+     * @return true si hay razas en la base de datos, false de lo contrario.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public boolean consultarExistencia() throws SQLException {
         String sql = "SELECT COUNT(*) FROM raza";
         try (Statement stmt = connection.createStatement();
@@ -161,6 +217,13 @@ public class RazaDAO {
         return false;
     }
     
+    /**
+     * Valida si una raza con el nombre especificado ya está creada en la base de datos.
+     *
+     * @param nombre El nombre de la raza a validar.
+     * @return true si la raza ya existe, false de lo contrario.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public boolean validarRazaCreada(String nombre) throws SQLException {
         String sql = "SELECT * FROM raza WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -171,7 +234,13 @@ public class RazaDAO {
         }
     }
 
-    // Método para buscar una raza por nombre
+    /**
+     * Busca una raza en la base de datos según su nombre.
+     *
+     * @param nombre El nombre de la raza a buscar.
+     * @return Un objeto RazaVO que representa la raza encontrada, o null si no se encuentra.
+     * @throws SQLException Si ocurre un error al realizar la operación en la base de datos.
+     */
     public RazaVO buscarRaza(String nombre) throws SQLException {
         String sql = "SELECT * FROM raza WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -194,6 +263,6 @@ public class RazaDAO {
                 }
             }
         }
-        return null; // Retorna null si no se encuentra la raza
+        return null;
     }
 }

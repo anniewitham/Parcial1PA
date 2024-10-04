@@ -10,6 +10,13 @@ import java.io.Serializable;
  * instancias sean serializadas y deserializadas, facilitando el almacenamiento
  * y la transmisión de datos.
  *
+ * La clase contiene varios atributos que describen la raza, incluyendo su
+ * nombre, país de origen, grupo FCI, sección FCI, apariencia, tipo de pelo, 
+ * color, y descripciones detalladas de varias características físicas.
+ *
+ * Se proporcionan métodos getters y setters para acceder y modificar los 
+ * atributos de la raza.
+ *
  * @author Ana, Samuel, Juan
  */
 public class RazaVO implements Serializable {
@@ -28,27 +35,26 @@ public class RazaVO implements Serializable {
     private String cola;           // Descripción de la cola
     private String pecho;          // Descripción del pecho
 
-    // Constructor vacío
+    /**
+     * Constructor vacío que inicializa una instancia de RazaVO.
+     */
     public RazaVO() {}
-
-    public RazaVO(int ID, String nombre, String paisOrigen, String grupoFCI, String seccionFCI,
-                  String apariencia, String pelo, String color, String espalda, 
-                  String lomo, String cola, String pecho) {
-        this.ID = ID;
-        this.nombre = nombre;
-        this.paisOrigen = paisOrigen;
-        this.grupoFCI = grupoFCI;
-        this.seccionFCI = seccionFCI;
-        this.apariencia = apariencia;
-        this.pelo = pelo;
-        this.color = color;
-        this.espalda = espalda;
-        this.lomo = lomo;
-        this.cola = cola;
-        this.pecho = pecho;
-    }
     
-    // Constructor completo
+    /**
+     * Constructor completo que inicializa una instancia de RazaVO con todos sus atributos.
+     *
+     * @param nombre        Nombre de la raza.
+     * @param paisOrigen    País de origen de la raza.
+     * @param grupoFCI      Grupo FCI al que pertenece la raza.
+     * @param seccionFCI    Sección FCI a la que pertenece la raza.
+     * @param apariencia    Descripción de la apariencia.
+     * @param pelo          Tipo de pelo.
+     * @param color         Color del manto.
+     * @param espalda       Descripción de la espalda.
+     * @param lomo          Descripción del lomo.
+     * @param cola          Descripción de la cola.
+     * @param pecho         Descripción del pecho.
+     */
     public RazaVO(String nombre, String paisOrigen, String grupoFCI, String seccionFCI,
                   String apariencia, String pelo, String color, String espalda, 
                   String lomo, String cola, String pecho) {
@@ -63,10 +69,6 @@ public class RazaVO implements Serializable {
         this.lomo = lomo;
         this.cola = cola;
         this.pecho = pecho;
-    }
-
-    public RazaVO(String grupoFCI, String seccionFCI, String apariencia, String pelo, String color, String espalda, String lomo, String cola, String pecho) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     // Getters y Setters

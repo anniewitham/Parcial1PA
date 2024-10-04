@@ -23,6 +23,15 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * 
+ * ControlPrincipal es la clase que maneja la lógica principal de la aplicación.
+ * Esta clase actúa como un controlador en el patrón MVC, gestionando la interacción 
+ * entre la vista y el modelo, así como el flujo de la aplicación. Proporciona 
+ * funcionalidades para registrar, consultar, modificar, eliminar, y serializar 
+ * razas de perros a través de una interfaz gráfica.
+ * @author Juan, Ana, Samuel
+ */
 public class ControlPrincipal implements ActionListener {
 
     private VentanaRegistrarRaza vistaRegistrarRaza;
@@ -34,6 +43,13 @@ public class ControlPrincipal implements ActionListener {
     private ControlRaza controlRaza;
     private ArchivoAleatorio archivoAleatorio;
 
+    /**
+     * Constructor de ControlPrincipal que inicializa las vistas, la conexión a la 
+     * base de datos, y carga las propiedades necesarias para el funcionamiento de la 
+     * aplicación.
+     * 
+     * @throws SQLException Si hay un error al establecer la conexión a la base de datos.
+     */
     public ControlPrincipal() throws SQLException {
         ventanaEmergente = new VentanaEmergente();
         buscarArchivo = new VentanaBuscarArchivo();
@@ -51,6 +67,12 @@ public class ControlPrincipal implements ActionListener {
         cargarPropiedades();
     }
 
+    /**
+     * Carga las propiedades de la base de datos desde un archivo seleccionado por el usuario.
+     * Establece la conexión a la base de datos y crea instancias de los objetos necesarios 
+     * para la gestión de razas. Si no hay razas registradas, se cargan razas desde las 
+     * propiedades del archivo y se muestran ventanas de actualización para completar la información.
+     */
     private void cargarPropiedades() {
         boolean archivoSeleccionado = false;
 
@@ -129,6 +151,14 @@ public class ControlPrincipal implements ActionListener {
         }
     }
 
+    
+    /**
+     * Maneja los eventos de acción de los botones en la interfaz gráfica.
+     * Dependiendo del comando recibido, llama a los métodos apropiados para 
+     * insertar, consultar, modificar, eliminar, serializar razas o actualizar información.
+     * 
+     * @param e El evento de acción que contiene información sobre la interacción del usuario.
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         String command = e.getActionCommand();
@@ -341,7 +371,6 @@ public class ControlPrincipal implements ActionListener {
                     ventanaEmergente.ventanaError("Error al actualizar: " + ex.getMessage());
                 }
 
-                // Verifica si hay más razas incompletas después de la actualización.
                 List<RazaVO> razasIncompletas = null;
                 try {
                     razasIncompletas = controlRaza.obtenerRazasIncompletas();
@@ -351,28 +380,22 @@ public class ControlPrincipal implements ActionListener {
                 if (!razasIncompletas.isEmpty()) {
                     for (RazaVO raza : razasIncompletas) {
                         ventanaEmergente.ventanaAtencion("Vas a actualizar la raza: " + raza.getNombre());
-
-                        // Crear nueva instancia de VentanaActualizar
+                        
                         ventanaCompletar = new VentanaActualizar(this);
                         ventanaCompletar.TextCompletarNombre.setText(raza.getNombre());
                         ventanaCompletar.TextCompletarPais.setText(raza.getPaisOrigen());
                         ventanaCompletar.ComboBoxGrupo.setSelectedItem(raza.getGrupoFCI());
                         ventanaCompletar.ComboBoxSeccion.setSelectedItem(raza.getSeccionFCI());
-
-                        // Agregar ActionListener solo una vez
+                        
                         ventanaCompletar.BotonActualizar.addActionListener(new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e) {
-                                // Implementar la lógica de actualización aquí
-                                // Asegurarse de que no se abra otra ventana hasta que esta se cierre
-                                ventanaCompletar.dispose(); // Cerrar la ventana actual
+                                ventanaCompletar.dispose();
                             }
                         });
 
-                        // Mostrar la ventana
                         ventanaCompletar.setVisible(true);
 
-                        // Espera a que la ventana se cierre
                         while (ventanaCompletar.isShowing()) {
                             try {
                                 Thread.sleep(100);
@@ -389,7 +412,6 @@ public class ControlPrincipal implements ActionListener {
 
                     persistirRazas();
                 } catch (IOException ex) {
-                    System.err.println("Error al serializar y persistir las razas: " + ex.getMessage());
                 }
                 System.exit(0);
                 break;
@@ -397,6 +419,7 @@ public class ControlPrincipal implements ActionListener {
         }
     }
 
+    
     private void persistirRazas() throws IOException {
         archivoAleatorio.abrirArchivo();
         List<String> razasSerializadas = new ArrayList<>();
@@ -405,10 +428,26 @@ public class ControlPrincipal implements ActionListener {
         archivoAleatorio.cerrarArchivo();
     }
 
+    /**
+    * Obtiene la instancia de la ventana emergente asociada a la clase.
+    * 
+    * @return ventanaEmergente La instancia de la clase VentanaEmergente.
+    */
     public VentanaEmergente getVentanaEmergente() {
         return ventanaEmergente;
     }
 
+    /**
+    * Agrega los datos de una lista de objetos RazaVO a la tabla de la vista.
+    * 
+    * Este método actualiza el modelo de la tabla eliminando las filas actuales
+    * y añadiendo nuevas filas con la información de cada RazaVO de la lista 
+    * proporcionada.
+    * 
+    * @param lista Lista de objetos RazaVO que contiene la información a mostrar 
+    *              en la tabla. Cada objeto RazaVO se utiliza para llenar 
+    *              una fila de la tabla con sus atributos correspondientes.
+    */
     private void agregarDatosATabla(List<RazaVO> lista) {
         DefaultTableModel model = (DefaultTableModel) vistaRegistrarRaza.Tabla.getModel();
         model.setRowCount(0);
