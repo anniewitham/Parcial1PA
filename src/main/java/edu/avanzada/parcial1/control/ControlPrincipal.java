@@ -34,14 +34,14 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ControlPrincipal implements ActionListener {
 
-    private VentanaRegistrarRaza vistaRegistrarRaza;
-    private VentanaBuscarArchivo buscarArchivo;
-    private VentanaEmergente ventanaEmergente;
-    private VentanaActualizar ventanaCompletar;
-    private RazaDAO razaDAO;
-    private Conexion conexion;
-    private ControlRaza controlRaza;
-    private ArchivoAleatorio archivoAleatorio;
+    protected VentanaRegistrarRaza vistaRegistrarRaza;
+    protected VentanaBuscarArchivo buscarArchivo;
+    protected VentanaEmergente ventanaEmergente;
+    protected VentanaActualizar ventanaCompletar;
+    protected RazaDAO razaDAO;
+    protected Conexion conexion;
+    protected ControlRaza controlRaza;
+    protected ArchivoAleatorio archivoAleatorio;
 
     /**
      * Constructor de ControlPrincipal que inicializa las vistas, la conexión a la 

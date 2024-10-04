@@ -18,8 +18,8 @@ import java.util.Properties;
  * @author Juan, Ana, Samuel
  */
 public class ControlRaza {
-    private RazaDAO razaDAO;   // Objeto para acceder a los datos de las razas
-    private ControlPrincipal control; // Controlador principal de la aplicación
+    protected RazaDAO razaDAO;   // Objeto para acceder a los datos de las razas
+    protected ControlPrincipal control; // Controlador principal de la aplicación
 
     /**
      * Constructor de la clase ControlRaza.
