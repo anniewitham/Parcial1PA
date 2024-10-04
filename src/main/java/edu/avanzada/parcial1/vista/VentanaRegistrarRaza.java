@@ -72,8 +72,10 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         PanelBaseDeDatos = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         Tabla = new javax.swing.JTable();
+        BotonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setUndecorated(true);
 
         jPanel1.setBackground(new java.awt.Color(228, 228, 255));
 
@@ -82,7 +84,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         jLabel1.setText("Bienvenido");
 
         PanelDatos.setBackground(new java.awt.Color(204, 204, 255));
-        PanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(0, 0, 102))); // NOI18N
+        PanelDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(0, 0, 102))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(51, 51, 51));
@@ -305,7 +307,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         );
 
         PanelBotones.setBackground(new java.awt.Color(188, 188, 234));
-        PanelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Operaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        PanelBotones.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Operaciones", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
 
         BotonConsultar.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         BotonConsultar.setText("Consultar");
@@ -365,7 +367,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
         );
 
         PanelBaseDeDatos.setBackground(new java.awt.Color(165, 165, 229));
-        PanelBaseDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Base De Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
+        PanelBaseDeDatos.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Base De Datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Monospaced", 0, 14), new java.awt.Color(102, 0, 102))); // NOI18N
 
         Tabla.setBackground(new java.awt.Color(204, 204, 255));
         Tabla.setModel(new javax.swing.table.DefaultTableModel(
@@ -394,6 +396,8 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
+        BotonSalir.setText("Salir");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -401,7 +405,9 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(jLabel1)
-                .addGap(451, 451, 451))
+                .addGap(359, 359, 359)
+                .addComponent(BotonSalir)
+                .addGap(17, 17, 17))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -417,7 +423,9 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(BotonSalir))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(PanelDatos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -586,6 +594,7 @@ public class VentanaRegistrarRaza extends javax.swing.JFrame {
     public javax.swing.JButton BotonInsertar;
     public javax.swing.JButton BotonLimpiar;
     public javax.swing.JButton BotonModificar;
+    public javax.swing.JButton BotonSalir;
     public javax.swing.JButton BotonSerializar;
     public javax.swing.JComboBox<String> GrupoFCI;
     private javax.swing.JPanel PanelBaseDeDatos;

@@ -1,5 +1,6 @@
 package edu.avanzada.parcial1.control;
 
+import edu.avanzada.parcial1.modelo.ArchivoAleatorio;
 import edu.avanzada.parcial1.modelo.Conexion;
 import edu.avanzada.parcial1.modelo.RazaDAO;
 import edu.avanzada.parcial1.modelo.RazaVO;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -27,10 +29,13 @@ public class ControlPrincipal implements ActionListener {
     private RazaDAO razaDAO;
     private Conexion conexion;
     private ControlRaza controlRaza;
+        private ArchivoAleatorio archivoAleatorio;
+
 
     public ControlPrincipal() throws SQLException {
         ventanaEmergente = new VentanaEmergente();
         buscarArchivo = new VentanaBuscarArchivo();
+        archivoAleatorio = new ArchivoAleatorio();
 
         vistaRegistrarRaza = new VentanaRegistrarRaza(this);
         vistaRegistrarRaza.BotonConsultar.addActionListener(this);
@@ -40,6 +45,7 @@ public class ControlPrincipal implements ActionListener {
         vistaRegistrarRaza.BotonSerializar.addActionListener(this);
         vistaRegistrarRaza.BotonEliminar.addActionListener(this);
         
+         vistaRegistrarRaza.BotonSalir.addActionListener(this);
         cargarPropiedades();
     }
 
@@ -60,7 +66,7 @@ public class ControlPrincipal implements ActionListener {
 
                     conexion = new Conexion(urlBD, usuario, contrasena);
                     razaDAO = new RazaDAO(conexion.getConexion());
-                    controlRaza = new ControlRaza(razaDAO);
+                    controlRaza = new ControlRaza(this, razaDAO);
 
                     if (!razaDAO.consultarExistencia()) {
                         controlRaza.cargarRazasDesdePropiedades(propiedades);
@@ -265,8 +271,11 @@ public class ControlPrincipal implements ActionListener {
                 break;
 
             case "Serializar":
-                // Implementa la lógica de serialización aquí.
-                ventanaEmergente.ventanaAtencion("Función de serializar no implementada.");
+                try {
+                    controlRaza.serializarRazas();
+                } catch (IOException ex) {
+                   ventanaEmergente.ventanaError("Error al serializar las razas: " + ex.getMessage());
+                }
                 break;
 
             case "Actualizar":
@@ -291,10 +300,26 @@ public class ControlPrincipal implements ActionListener {
             case "Limpiar":
                 vistaRegistrarRaza.limpiar();
                 break;
+                 case "Salir":
+                try {
+                
+                persistirRazas();
+            } catch (IOException ex) {
+                System.err.println("Error al serializar y persistir las razas: " + ex.getMessage());
+            }
+            System.exit(0);
+                break;
             default:
                 ventanaEmergente.ventanaAtencion("Acción no reconocida.");
                 break;
         }
+    }
+    private void persistirRazas() throws IOException {
+        archivoAleatorio.abrirArchivo();
+        List<String> razasSerializadas = new ArrayList<>();
+        // Agrega cadenas de texto a la lista
+        archivoAleatorio.persistirRazas(razasSerializadas);
+        archivoAleatorio.cerrarArchivo();
     }
     
     private void agregarDatosATabla(List<RazaVO> lista) {
@@ -318,5 +343,11 @@ public class ControlPrincipal implements ActionListener {
             model.addRow(rowData);
         }
     }
+
+    public VentanaEmergente getVentanaEmergente() {
+        return ventanaEmergente;
+    }
+    
+    
     
 }
