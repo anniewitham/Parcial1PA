@@ -4,12 +4,14 @@ import edu.avanzada.parcial1.modelo.Conexion;
 import edu.avanzada.parcial1.modelo.RazaDAO;
 import edu.avanzada.parcial1.modelo.RazaVO;
 import edu.avanzada.parcial1.vista.VentanaBuscarArchivo;
-import edu.avanzada.parcial1.vista.VentanaCompletar;
+import edu.avanzada.parcial1.vista.VentanaActualizar;
 import edu.avanzada.parcial1.vista.VentanaEmergente;
 import edu.avanzada.parcial1.vista.VentanaRegistrarRaza;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.SQLException;
@@ -23,7 +25,7 @@ public class ControlPrincipal implements ActionListener {
     private VentanaRegistrarRaza vistaRegistrarRaza;
     private VentanaBuscarArchivo buscarArchivo;
     private VentanaEmergente ventanaEmergente;
-    private VentanaCompletar ventanaCompletar;
+    private VentanaActualizar ventanaCompletar;
     private RazaDAO razaDAO;
     private Conexion conexion;
     private ControlRaza controlRaza;
@@ -58,6 +60,11 @@ public class ControlPrincipal implements ActionListener {
                     String usuario = propiedades.getProperty("usuario");
                     String contrasena = propiedades.getProperty("contrasena");
 
+                    if (urlBD == null || usuario == null || contrasena == null) {
+                        ventanaEmergente.ventanaError("Faltan propiedades en el archivo.");
+                        continue;
+                    }
+
                     conexion = new Conexion(urlBD, usuario, contrasena);
                     razaDAO = new RazaDAO(conexion.getConexion());
                     controlRaza = new ControlRaza(razaDAO);
@@ -69,15 +76,29 @@ public class ControlPrincipal implements ActionListener {
                         List<RazaVO> razasIncompletas = controlRaza.obtenerRazasIncompletas();
                         if (!razasIncompletas.isEmpty()) {
                             for (RazaVO raza : razasIncompletas) {
-                                ventanaCompletar = new VentanaCompletar(this);
+                                ventanaEmergente.ventanaAtencion("Vas a actualizar la raza: " + raza.getNombre());
+
+                                ventanaCompletar = new VentanaActualizar(this);
+                                ventanaCompletar.TextCompletarNombre.setText(raza.getNombre());
+                                ventanaCompletar.TextCompletarPais.setText(raza.getPaisOrigen());
                                 ventanaCompletar.BotonActualizar.addActionListener(this);
-                                ventanaCompletar.ID.setText(Integer.toString(raza.getID()));
                                 ventanaCompletar.ComboBoxGrupo.setSelectedItem(raza.getGrupoFCI());
                                 ventanaCompletar.ComboBoxSeccion.setSelectedItem(raza.getSeccionFCI());
 
                                 ventanaCompletar.setVisible(true);
-                                while (ventanaCompletar.isVisible()) {
-                                    Thread.sleep(100);
+                                ventanaCompletar.addWindowListener(new WindowAdapter() {
+                                    @Override
+                                    public void windowClosing(WindowEvent e) {
+                                        ventanaCompletar.dispose();
+                                    }
+                                });
+
+                                while (ventanaCompletar.isShowing()) {
+                                    try {
+                                        Thread.sleep(100);
+                                    } catch (InterruptedException ie) {
+                                        Thread.currentThread().interrupt();
+                                    }
                                 }
                             }
                         }
@@ -96,11 +117,12 @@ public class ControlPrincipal implements ActionListener {
             } catch (SQLException e) {
                 ventanaEmergente.ventanaError("Error al acceder a la base de datos: " + e.getMessage());
                 archivoSeleccionado = true;
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
+            } catch (Exception e) {
+                ventanaEmergente.ventanaError("Error inesperado: " + e.getMessage());
             }
         }
     }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -127,7 +149,7 @@ public class ControlPrincipal implements ActionListener {
                                 vistaRegistrarRaza.TextRaza.getText(),
                                 vistaRegistrarRaza.TextPais.getText(),
                                 vistaRegistrarRaza.GrupoFCI.getSelectedItem().toString(),
-                                vistaRegistrarRaza.SeccionFCI.getSelectedItem().toString(),
+                                vistaRegistrarRaza.ComboBoxSeccion.getSelectedItem().toString(),
                                 vistaRegistrarRaza.TextApariencia.getText(),
                                 vistaRegistrarRaza.TextPelo.getText(),
                                 vistaRegistrarRaza.TextColor.getText(),
@@ -190,7 +212,7 @@ public class ControlPrincipal implements ActionListener {
                     try {
                         List<RazaVO> lista = controlRaza.consultarRaza(2,
                                 vistaRegistrarRaza.GrupoFCI.getSelectedItem().toString() + "," +
-                                vistaRegistrarRaza.SeccionFCI.getSelectedItem().toString());
+                                vistaRegistrarRaza.ComboBoxSeccion.getSelectedItem().toString());
                         agregarDatosATabla(lista);
                     } catch (SQLException ex) {
                         ventanaEmergente.ventanaError("Error al consultar la raza: " + ex.getMessage());
@@ -245,8 +267,27 @@ public class ControlPrincipal implements ActionListener {
                 break;
 
             case "Modificar":
-                // Implementa la lógica de modificación aquí.
-                ventanaEmergente.ventanaAtencion("Función de modificar no implementada.");
+                int seleccionM = vistaRegistrarRaza.Tabla.getSelectedRow();
+                if(seleccionM != -1){
+                    try {
+                        RazaVO raza = (RazaVO) controlRaza.consultarRaza(1, (String) vistaRegistrarRaza.Tabla.getValueAt(seleccionM, 0));
+                        
+                        ventanaCompletar = new VentanaActualizar(this);
+                        ventanaCompletar.TextCompletarNombre.setText(raza.getNombre());
+                        ventanaCompletar.TextCompletarPais.setText(raza.getPaisOrigen());
+                        ventanaCompletar.ComboBoxGrupo.setSelectedItem(raza.getGrupoFCI());
+                        ventanaCompletar.ComboBoxSeccion.setSelectedItem(raza.getSeccionFCI());
+                        ventanaCompletar.TextCompletarApariencia.setText(raza.getApariencia());
+                        ventanaCompletar.TextCompletarCola.setText(raza.getCola());
+                        ventanaCompletar.TextCompletarColor.setText(raza.getColor());
+                        ventanaCompletar.TextCompletarEspalda.setText(raza.getEspalda());
+                        ventanaCompletar.TextCompletarLomo.setText(raza.getLomo());
+                        ventanaCompletar.TextCompletarPecho.setText(raza.getPecho());
+                        ventanaCompletar.TextCompletarPelo.setText(raza.getPelo());
+                    } catch (SQLException ex) {
+                    }
+                    
+                }
                 break;
 
             case "Eliminar":
@@ -270,30 +311,72 @@ public class ControlPrincipal implements ActionListener {
                 break;
 
             case "Actualizar":
-                // Aquí va la lógica para actualizar las razas desde VentanaCompletar.
-                try {
-                    controlRaza.completarRaza(
-                            ventanaCompletar.ComboBoxGrupo.getSelectedItem().toString(),
-                            ventanaCompletar.ComboBoxSeccion.getSelectedItem().toString(),
-                            ventanaCompletar.TextCompletarApariencia.getText(),
-                            ventanaCompletar.TextCompletarPelo.getText(),
-                            ventanaCompletar.TextCompletarColor.getText(),
-                            ventanaCompletar.TextCompletarEspalda.getText(),
-                            ventanaCompletar.TextCompletarLomo.getText(),
-                            ventanaCompletar.TextCompletarCola.getText(),
-                            ventanaCompletar.TextCompletarPecho.getText(),
-                            Integer.parseInt(ventanaCompletar.ID.getText())
-                    );
-                } catch (SQLException ex) {
-                    ventanaEmergente.ventanaError("Error al actualizar la raza: " + ex.getMessage());
+                    RazaVO razaa = new RazaVO(
+                    ventanaCompletar.TextCompletarNombre.getText(),
+                    ventanaCompletar.TextCompletarPais.getText(),
+                    ventanaCompletar.ComboBoxGrupo.getSelectedItem().toString(),
+                    ventanaCompletar.ComboBoxSeccion.getSelectedItem().toString(),
+                    ventanaCompletar.TextCompletarApariencia.getText(),
+                    ventanaCompletar.TextCompletarPelo.getText(),
+                    ventanaCompletar.TextCompletarColor.getText(),
+                    ventanaCompletar.TextCompletarEspalda.getText(),
+                    ventanaCompletar.TextCompletarLomo.getText(),
+                    ventanaCompletar.TextCompletarCola.getText(),
+                    ventanaCompletar.TextCompletarPecho.getText()
+                );
+        
+            try {
+                controlRaza.actualizarRaza(razaa);
+                ventanaCompletar.dispose();
+                ventanaEmergente.ventanaPlana("Raza " + razaa.getNombre() + " actualizada correctamente");
+            } catch (SQLException ex) {
+                ventanaEmergente.ventanaError("Error al actualizar: " + ex.getMessage());
+            }
+
+        // Verifica si hay más razas incompletas después de la actualización.
+        List<RazaVO> razasIncompletas = null;
+            try {
+                razasIncompletas = controlRaza.obtenerRazasIncompletas();
+            } catch (SQLException ex) {
+                Logger.getLogger(ControlPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        if (!razasIncompletas.isEmpty()) {
+            for (RazaVO raza : razasIncompletas) {
+                ventanaEmergente.ventanaAtencion("Vas a actualizar la raza: " + raza.getNombre());
+
+                // Crear nueva instancia de VentanaActualizar
+                ventanaCompletar = new VentanaActualizar(this);
+                ventanaCompletar.TextCompletarNombre.setText(raza.getNombre());
+                ventanaCompletar.TextCompletarPais.setText(raza.getPaisOrigen());
+                ventanaCompletar.ComboBoxGrupo.setSelectedItem(raza.getGrupoFCI());
+                ventanaCompletar.ComboBoxSeccion.setSelectedItem(raza.getSeccionFCI());
+
+                // Agregar ActionListener solo una vez
+                ventanaCompletar.BotonActualizar.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        // Implementar la lógica de actualización aquí
+                        // Asegurarse de que no se abra otra ventana hasta que esta se cierre
+                        ventanaCompletar.dispose(); // Cerrar la ventana actual
+                    }
+                });
+
+                // Mostrar la ventana
+                ventanaCompletar.setVisible(true);
+
+                // Espera a que la ventana se cierre
+                while (ventanaCompletar.isShowing()) {
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException ie) {
+                        Thread.currentThread().interrupt();
+                    }
                 }
-                break;
-            case "Limpiar":
-                vistaRegistrarRaza.limpiar();
-                break;
-            default:
-                ventanaEmergente.ventanaAtencion("Acción no reconocida.");
-                break;
+            }
+        }
+    
+    break;
+
         }
     }
     
@@ -318,5 +401,4 @@ public class ControlPrincipal implements ActionListener {
             model.addRow(rowData);
         }
     }
-    
 }

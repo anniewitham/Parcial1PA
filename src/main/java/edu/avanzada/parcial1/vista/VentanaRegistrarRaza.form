@@ -183,7 +183,7 @@
                               <EmptySpace min="-2" pref="67" max="-2" attributes="0"/>
                               <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                               <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Component id="SeccionFCI" min="-2" pref="367" max="-2" attributes="0"/>
+                              <Component id="ComboBoxSeccion" min="-2" pref="367" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
@@ -234,7 +234,7 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel11" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="SeccionFCI" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ComboBoxSeccion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="GrupoFCI" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
@@ -434,7 +434,7 @@
                 <Property name="text" type="java.lang.String" value="Grupo:"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JComboBox" name="SeccionFCI">
+            <Component class="javax.swing.JComboBox" name="ComboBoxSeccion">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
                   <StringArray count="0"/>

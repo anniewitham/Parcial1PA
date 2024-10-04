@@ -25,7 +25,7 @@ public class RazaDAO {
             stmt.executeUpdate();
         }
     }
-    
+
     public void insertarRaza(RazaVO raza) throws SQLException {
         String sql = "INSERT INTO `raza`(`id`, `nombre`, `pais_origen`, `grupo_fci`, `seccion_fci`, `apariencia_general`, `pelo`, `color`, `espalda`, `lomo`, `cola`, `pecho`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
@@ -40,14 +40,14 @@ public class RazaDAO {
             stmt.setString(9, raza.getEspalda());
             stmt.setString(10, raza.getLomo());
             stmt.setString(11, raza.getCola());
-            stmt.setString(12, raza.getPelo());
+            stmt.setString(12, raza.getPecho());
             stmt.executeUpdate();
         }
     }
 
-    public void actualizarRaza(RazaVO raza, int id) throws SQLException {
+    public void actualizarRaza(RazaVO raza) throws SQLException {
         String sql = "UPDATE raza SET grupo_fci = ?, seccion_fci = ?, apariencia_general = ?, "
-                   + "pelo = ?, color = ?, espalda = ?, lomo = ?, cola = ?, pecho = ? WHERE id = ?";
+                   + "pelo = ?, color = ?, espalda = ?, lomo = ?, cola = ?, pecho = ? WHERE nombre = ?";
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, raza.getGrupoFCI());
             stmt.setString(2, raza.getSeccionFCI());
@@ -58,7 +58,7 @@ public class RazaDAO {
             stmt.setString(7, raza.getLomo());
             stmt.setString(8, raza.getCola());
             stmt.setString(9, raza.getPecho());
-            stmt.setInt(10, id);
+            stmt.setString(10, raza.getNombre());
             stmt.executeUpdate();
         }
     }
@@ -68,9 +68,8 @@ public class RazaDAO {
         try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, nombre);
             stmt.executeUpdate();
+        }
     }
-}
-
 
     public List<RazaVO> consultarRazas() throws SQLException {
         List<RazaVO> razas = new ArrayList<>();
@@ -170,5 +169,31 @@ public class RazaDAO {
                 return rs.next();
             }
         }
+    }
+
+    // Método para buscar una raza por nombre
+    public RazaVO buscarRaza(String nombre) throws SQLException {
+        String sql = "SELECT * FROM raza WHERE nombre = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, nombre);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new RazaVO(
+                        rs.getString("nombre"),
+                        rs.getString("pais_origen"),
+                        rs.getString("grupo_fci"),
+                        rs.getString("seccion_fci"),
+                        rs.getString("apariencia_general"),
+                        rs.getString("pelo"),
+                        rs.getString("color"),
+                        rs.getString("espalda"),
+                        rs.getString("lomo"),
+                        rs.getString("cola"),
+                        rs.getString("pecho")
+                    );
+                }
+            }
+        }
+        return null; // Retorna null si no se encuentra la raza
     }
 }

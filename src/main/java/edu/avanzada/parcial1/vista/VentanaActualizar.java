@@ -7,17 +7,19 @@ import edu.avanzada.parcial1.control.ControlPrincipal;
  *
  *  @author Ana, Samuel, Juan
  */
-public class VentanaCompletar extends javax.swing.JFrame {
+public class VentanaActualizar extends javax.swing.JFrame {
 
     private ControlPrincipal control;
     
     /**
      * Creates new form VentanaRegistrarRaza
      */
-    public VentanaCompletar(ControlPrincipal aThis) {
+    public VentanaActualizar(ControlPrincipal aThis) {
         control = aThis;
         initComponents();
         setLocationRelativeTo(null);
+        TextCompletarNombre.setEditable(false);
+        TextCompletarPais.setEditable(false);
     }
     
     public void limpiar(){
@@ -28,7 +30,8 @@ public class VentanaCompletar extends javax.swing.JFrame {
         TextCompletarLomo.setText("");
         TextCompletarPecho.setText("");
         TextCompletarPelo.setText("");
-        ID.setText("");
+        TextCompletarPais.setText("");
+        TextCompletarNombre.setText("");
     }
     
     
@@ -64,11 +67,13 @@ public class VentanaCompletar extends javax.swing.JFrame {
         ComboBoxSeccion = new javax.swing.JComboBox<>();
         ComboBoxGrupo = new javax.swing.JComboBox<>();
         jLabel13 = new javax.swing.JLabel();
+        TextCompletarNombre = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        TextCompletarPais = new javax.swing.JTextField();
+        jLabel16 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         BotonActualizar = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        ID = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -184,6 +189,26 @@ public class VentanaCompletar extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(51, 51, 51));
         jLabel13.setText("Seccion:");
 
+        TextCompletarNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextCompletarNombreActionPerformed(evt);
+            }
+        });
+
+        jLabel15.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        jLabel15.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel15.setText("Nombre");
+
+        TextCompletarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TextCompletarPaisActionPerformed(evt);
+            }
+        });
+
+        jLabel16.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        jLabel16.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel16.setText("Pais");
+
         javax.swing.GroupLayout PanelDatosLayout = new javax.swing.GroupLayout(PanelDatos);
         PanelDatos.setLayout(PanelDatosLayout);
         PanelDatosLayout.setHorizontalGroup(
@@ -213,21 +238,28 @@ public class VentanaCompletar extends javax.swing.JFrame {
                                     .addComponent(jLabel5)
                                     .addComponent(jLabel6))
                                 .addGap(40, 40, 40))
-                            .addComponent(TextCompletarPecho, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(PanelDatosLayout.createSequentialGroup()
+                                .addComponent(TextCompletarPecho, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(62, 62, 62)
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                 .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(PanelDatosLayout.createSequentialGroup()
                         .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TextCompletarPelo, javax.swing.GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
-                            .addComponent(TextCompletarColor))
-                        .addGap(100, 100, 100)
+                            .addComponent(TextCompletarColor)
+                            .addComponent(TextCompletarNombre, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(90, 90, 90)
                         .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel8)
-                            .addComponent(jLabel9))
+                            .addComponent(jLabel9)
+                            .addComponent(jLabel16))
                         .addGap(18, 18, 18)
                         .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(TextCompletarLomo, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                            .addComponent(TextCompletarCola))
-                        .addGap(0, 50, Short.MAX_VALUE))
+                            .addComponent(TextCompletarCola)
+                            .addComponent(TextCompletarPais))
+                        .addGap(0, 60, Short.MAX_VALUE))
                     .addGroup(PanelDatosLayout.createSequentialGroup()
                         .addGap(67, 67, 67)
                         .addComponent(jLabel13)
@@ -254,10 +286,15 @@ public class VentanaCompletar extends javax.swing.JFrame {
                                     .addComponent(TextCompletarEspalda, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel7)
                                     .addComponent(jLabel6))
-                                .addGap(18, 18, 18)
-                                .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel10)
-                                    .addComponent(TextCompletarPecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(PanelDatosLayout.createSequentialGroup()
+                                        .addGap(18, 18, 18)
+                                        .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel10)
+                                            .addComponent(TextCompletarPecho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(PanelDatosLayout.createSequentialGroup()
+                                        .addGap(29, 29, 29)
+                                        .addComponent(jLabel15))))
                             .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                 .addComponent(jLabel9)
                                 .addComponent(TextCompletarCola, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -267,15 +304,25 @@ public class VentanaCompletar extends javax.swing.JFrame {
                             .addComponent(TextCompletarPelo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
                         .addGap(18, 18, 18)
-                        .addComponent(TextCompletarColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(10, 10, 10)
-                .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jLabel12)
-                    .addComponent(ComboBoxSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
-                    .addComponent(ComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(16, Short.MAX_VALUE))
+                        .addComponent(TextCompletarColor, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TextCompletarNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TextCompletarPais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel16))))
+                .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelDatosLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE)
+                        .addGroup(PanelDatosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(ComboBoxSeccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel13)
+                            .addComponent(ComboBoxGrupo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel12)))
+                    .addGroup(PanelDatosLayout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel11)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
 
         jPanel1.add(PanelDatos);
@@ -299,21 +346,9 @@ public class VentanaCompletar extends javax.swing.JFrame {
         jPanel1.add(BotonActualizar);
         BotonActualizar.setBounds(830, 358, 155, 32);
 
-        jLabel2.setText("ID que se actualizara:");
-        jPanel1.add(jLabel2);
-        jLabel2.setBounds(670, 320, 118, 16);
-
         jLabel3.setText("las razas para continuar)");
         jPanel1.add(jLabel3);
         jLabel3.setBounds(670, 370, 136, 16);
-
-        ID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                IDActionPerformed(evt);
-            }
-        });
-        jPanel1.add(ID);
-        ID.setBounds(840, 310, 120, 40);
 
         jLabel14.setText("(Debe completar todas ");
         jPanel1.add(jLabel14);
@@ -372,7 +407,79 @@ public class VentanaCompletar extends javax.swing.JFrame {
 
     private void ComboBoxGrupoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboBoxGrupoActionPerformed
 
-        
+    
+
+    String grupoSeleccionado = (String) ComboBoxGrupo.getSelectedItem(); 
+    
+    ComboBoxSeccion.removeAllItems();
+    ComboBoxSeccion.setSelectedItem(null);
+
+    // Si hay un valor seleccionado, proceder con el switch
+    if (grupoSeleccionado != null) {
+        switch (grupoSeleccionado) {
+            case "Grupo I: perros de pastor y perros boyeros.":
+                ComboBoxSeccion.addItem("Sección 1: Perros de pastor");
+                ComboBoxSeccion.addItem("Sección 2: Perros boyeros");
+                break;
+            case "Grupo II: perros Pinscher, Schnauzer, Molosoide y perros Boyeros Suizos.":
+                ComboBoxSeccion.addItem("Sección 1: Perros Pinscher y Schanuzer");
+                ComboBoxSeccion.addItem("Sección 2: Perros Molosoides");
+                ComboBoxSeccion.addItem("Sección 3: Perros tipo montaña y boyeros suizos");
+                break;
+            case "Grupo III: perros Terriers.":
+                ComboBoxSeccion.addItem("Sección 1: Terriers de talla grande y media");
+                ComboBoxSeccion.addItem("Sección 2: Terriers de talla pequeña");
+                ComboBoxSeccion.addItem("Sección 3: Terriers tipo bull");
+                ComboBoxSeccion.addItem("Sección 4: Terriers de compañía");
+                break;
+            case "Grupo IV: perros Dachshund o Teckel.":
+                // No hay secciones para este grupo
+                break;
+            case "Grupo V: perros tipo Spitz y tipo primitivo.":
+                ComboBoxSeccion.addItem("Sección 1: Perros nórdico de trineo");
+                ComboBoxSeccion.addItem("Sección 2: Perros nórdicos de cacería");
+                ComboBoxSeccion.addItem("Sección 3: Perros nórdicos de guarda y pastoreo");
+                ComboBoxSeccion.addItem("Sección 4: Spitz europeos");
+                ComboBoxSeccion.addItem("Sección 5: Spitz asiáticos y razas semejantes");
+                ComboBoxSeccion.addItem("Sección 6: Tipo primitivo");
+                ComboBoxSeccion.addItem("Sección 7: Tipo primitivo - perros de caza");
+                break;
+            case "Grupo VI: perros tipo sabueso y perros de rastreo.":
+                ComboBoxSeccion.addItem("Sección 1: Perros tipo sabueso");
+                ComboBoxSeccion.addItem("Sección 2: Perros de rastro");
+                ComboBoxSeccion.addItem("Sección 3: Razas semejantes");
+                break;
+            case "Grupo VII: perros de muestra.":
+                ComboBoxSeccion.addItem("Sección 1: Perros de muestra continentales");
+                ComboBoxSeccion.addItem("Sección 2: Perros de muestra ingleses e irlandeses");
+                break;
+            case "Grupo VIII: perros cobradores, cazadores y perros de aguas.":
+                ComboBoxSeccion.addItem("Sección 1: Perros cobradores de caza");
+                ComboBoxSeccion.addItem("Sección 2: Perros levantadores de caza");
+                ComboBoxSeccion.addItem("Sección 3: Perros de agua.");
+                break;
+            case "Grupo IX: perros de compañía.":
+                ComboBoxSeccion.addItem("Sección 1: Bichons y razas semejantes");
+                ComboBoxSeccion.addItem("Sección 2: Caniche");
+                ComboBoxSeccion.addItem("Sección 3: Perros belga de talla pequeña");
+                ComboBoxSeccion.addItem("Sección 4: Perros sin pelos");
+                ComboBoxSeccion.addItem("Sección 5: Perros tibetanos");
+                ComboBoxSeccion.addItem("Sección 6: Chihuahueno");
+                ComboBoxSeccion.addItem("Sección 7: Spaniels ingleses de compañía");
+                ComboBoxSeccion.addItem("Sección 8: Spaniels japoneses y pekineses");
+                ComboBoxSeccion.addItem("Sección 9: Spaniels continental enano y otro");
+                ComboBoxSeccion.addItem("Sección 10: Kromfohrlande");
+                ComboBoxSeccion.addItem("Sección 11: Molosoides de talla pequeña");
+                break;
+            case "Grupo X: perros lebreles.":
+                ComboBoxSeccion.addItem("Sección 1: lebreles de pelo largo u ondulado");
+                ComboBoxSeccion.addItem("Sección 2: lebreles de pelo duro");
+                ComboBoxSeccion.addItem("Sección 3: lebreles de pelo corto");
+                break;
+        }
+    }
+
+    
 
     }//GEN-LAST:event_ComboBoxGrupoActionPerformed
 
@@ -384,9 +491,13 @@ public class VentanaCompletar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_BotonActualizarActionPerformed
 
-    private void IDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_IDActionPerformed
+    private void TextCompletarNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextCompletarNombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_IDActionPerformed
+    }//GEN-LAST:event_TextCompletarNombreActionPerformed
+
+    private void TextCompletarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TextCompletarPaisActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TextCompletarPaisActionPerformed
 
     
     
@@ -394,13 +505,14 @@ public class VentanaCompletar extends javax.swing.JFrame {
     public javax.swing.JButton BotonActualizar;
     public javax.swing.JComboBox<String> ComboBoxGrupo;
     public javax.swing.JComboBox<String> ComboBoxSeccion;
-    public javax.swing.JTextField ID;
     private javax.swing.JPanel PanelDatos;
     public javax.swing.JTextField TextCompletarApariencia;
     public javax.swing.JTextField TextCompletarCola;
     public javax.swing.JTextField TextCompletarColor;
     public javax.swing.JTextField TextCompletarEspalda;
     public javax.swing.JTextField TextCompletarLomo;
+    public javax.swing.JTextField TextCompletarNombre;
+    public javax.swing.JTextField TextCompletarPais;
     public javax.swing.JTextField TextCompletarPecho;
     public javax.swing.JTextField TextCompletarPelo;
     private javax.swing.JLabel jLabel1;
@@ -409,7 +521,8 @@ public class VentanaCompletar extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

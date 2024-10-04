@@ -41,20 +41,13 @@ public class ControlRaza {
             razaDAO.insertarRaza(raza); // Delegar la inserción a RazaDAO
         }
     }
-    
+
     public void insertarRazaP(RazaVO raza) throws SQLException {
         razaDAO.insertarRazaP(raza);
     }
-    
+
     public void insertarRaza(RazaVO raza) throws SQLException {
         razaDAO.insertarRaza(raza);
-    }
-
-    public void completarRaza(String grupoFCI, String seccionFCI,
-                              String apariencia, String pelo, String color, String espalda,
-                              String lomo, String cola, String pecho, int ID) throws SQLException {
-        RazaVO raza = new RazaVO(grupoFCI, seccionFCI, apariencia, pelo, color, espalda, lomo, cola, pecho);
-        razaDAO.actualizarRaza(raza, ID);
     }
 
     public void eliminarRaza(String nombre) throws SQLException {
@@ -83,9 +76,15 @@ public class ControlRaza {
     }
     
     public boolean validarRazaCreada(String nombre) throws SQLException {
-        if(razaDAO.validarRazaCreada(nombre)){
-            return true;
-        }
-        return false;
+        return razaDAO.validarRazaCreada(nombre);
+    }
+    
+    // Método para buscar una raza por nombre
+    public RazaVO buscarRaza(String nombre) throws SQLException {
+        return razaDAO.buscarRaza(nombre);
+    }
+    
+    public void actualizarRaza(RazaVO raza) throws SQLException {
+        razaDAO.actualizarRaza(raza);
     }
 }
