@@ -57,9 +57,8 @@ public class ControlRaza {
         razaDAO.actualizarRaza(raza, ID);
     }
 
-    public void eliminarRaza(int id) throws SQLException {
-        // Delegar la eliminación a RazaDAO
-        razaDAO.eliminarRaza(id);
+    public void eliminarRaza(String nombre) throws SQLException {
+        razaDAO.eliminarRaza(nombre);
     }
 
     public List<RazaVO> consultarRaza(int tipoConsulta, String consulta) throws SQLException {
@@ -81,5 +80,12 @@ public class ControlRaza {
         }
 
         return razasIncompletas;
+    }
+    
+    public boolean validarRazaCreada(String nombre) throws SQLException {
+        if(razaDAO.validarRazaCreada(nombre)){
+            return true;
+        }
+        return false;
     }
 }

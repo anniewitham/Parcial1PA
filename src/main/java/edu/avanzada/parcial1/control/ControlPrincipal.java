@@ -107,27 +107,47 @@ public class ControlPrincipal implements ActionListener {
         String command = e.getActionCommand();
         switch (command) {
             case "Insertar":
-                RazaVO raza = new RazaVO(
-                    vistaRegistrarRaza.TextRaza.getText(),
-                    vistaRegistrarRaza.TextPais.getText(),
-                    vistaRegistrarRaza.GrupoFCI.getSelectedItem().toString(),
-                    vistaRegistrarRaza.SeccionFCI.getSelectedItem().toString(),
-                    vistaRegistrarRaza.TextApariencia.getText(),
-                    vistaRegistrarRaza.TextPelo.getText(),
-                    vistaRegistrarRaza.TextColor.getText(),
-                    vistaRegistrarRaza.TextEspalda.getText(),
-                    vistaRegistrarRaza.TextLomo.getText(),
-                    vistaRegistrarRaza.TextCola.getText(),
-                    vistaRegistrarRaza.TextPecho.getText()
-                );
-                try {
-                    controlRaza.insertarRaza(raza);
-                    ventanaEmergente.ventanaPlana("Raza " + raza.getNombre() + " insertada correctamente");
+                if (vistaRegistrarRaza.TextRaza.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextPais.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextApariencia.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextPelo.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextColor.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextEspalda.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextLomo.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextCola.getText().isEmpty() ||
+                        vistaRegistrarRaza.TextPecho.getText().isEmpty()){
+                    ventanaEmergente.ventanaAtencion("Por favor, ingresa todos los datos para la insercion de la raza.");
+                } else {
+                    try {
+                        if(controlRaza.validarRazaCreada(vistaRegistrarRaza.TextRaza.getText().toString())){
+                            ventanaEmergente.ventanaError("La raza "+vistaRegistrarRaza.TextRaza.getText()+" ya existe en la base de datos.");
+                            break;
+                        } else {
+                            RazaVO raza = new RazaVO(
+                                vistaRegistrarRaza.TextRaza.getText(),
+                                vistaRegistrarRaza.TextPais.getText(),
+                                vistaRegistrarRaza.GrupoFCI.getSelectedItem().toString(),
+                                vistaRegistrarRaza.SeccionFCI.getSelectedItem().toString(),
+                                vistaRegistrarRaza.TextApariencia.getText(),
+                                vistaRegistrarRaza.TextPelo.getText(),
+                                vistaRegistrarRaza.TextColor.getText(),
+                                vistaRegistrarRaza.TextEspalda.getText(),
+                                vistaRegistrarRaza.TextLomo.getText(),
+                                vistaRegistrarRaza.TextCola.getText(),
+                                vistaRegistrarRaza.TextPecho.getText()
+                            );
+                        try {
+                            controlRaza.insertarRaza(raza);
+                            ventanaEmergente.ventanaPlana("Raza " + raza.getNombre() + " insertada correctamente");
+                        } catch (SQLException ex) {
+                            ventanaEmergente.ventanaError(ex.toString());
+                        }
+                    vistaRegistrarRaza.limpiar();
+                    }
                 } catch (SQLException ex) {
-                    ventanaEmergente.ventanaError(ex.toString());
                 }
-                vistaRegistrarRaza.limpiar();
-                break;
+            }
+            break;
 
             case "Consultar":
                 DefaultTableModel model = (DefaultTableModel) vistaRegistrarRaza.Tabla.getModel();
@@ -147,11 +167,8 @@ public class ControlPrincipal implements ActionListener {
                             "- Grupo y sección FCI (predeterminado)\n" +
                             "- País de origen\n" +
                             "- Color de manto en común");
-                    System.out.println("a");
                         try {
-                            System.out.println("a");
                             List<RazaVO> lista = controlRaza.consultarRaza(1, vistaRegistrarRaza.TextRaza.getText());
-                            System.out.println("Lista de razas consultadas: " + lista.size());
                             agregarDatosATabla(lista);
                         } catch (SQLException ex) {
                             ventanaEmergente.ventanaError("Error al consultar la raza: " + ex.getMessage());
@@ -233,8 +250,18 @@ public class ControlPrincipal implements ActionListener {
                 break;
 
             case "Eliminar":
-                // Implementa la lógica de eliminación aquí.
-                ventanaEmergente.ventanaAtencion("Función de eliminar no implementada.");
+                int seleccion = vistaRegistrarRaza.Tabla.getSelectedRow();
+                if(seleccion != -1) {
+                    String nombre = (String) vistaRegistrarRaza.Tabla.getValueAt(seleccion, 0);
+                    try {
+                        controlRaza.eliminarRaza(nombre);
+                        ((DefaultTableModel) vistaRegistrarRaza.Tabla.getModel()).removeRow(seleccion);
+                        ventanaEmergente.ventanaPlana("Se acaba de eliminar la raza "+nombre+" de la base de datos.");
+                    } catch (SQLException ex) {
+                        }
+                } else {
+                    ventanaEmergente.ventanaAtencion("Debes seleccionar un registro para ser eliminado.");
+                }
                 break;
 
             case "Serializar":
@@ -271,9 +298,8 @@ public class ControlPrincipal implements ActionListener {
     }
     
     private void agregarDatosATabla(List<RazaVO> lista) {
-        System.out.println("Lista de razas consultadas: " + lista.size());
         DefaultTableModel model = (DefaultTableModel) vistaRegistrarRaza.Tabla.getModel();
-        model.setRowCount(0); // Limpia la tabla antes de agregar nuevos datos
+        model.setRowCount(0);
 
         for (RazaVO raza : lista) {
             Object[] rowData = {
@@ -292,4 +318,5 @@ public class ControlPrincipal implements ActionListener {
             model.addRow(rowData);
         }
     }
+    
 }
